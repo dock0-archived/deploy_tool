@@ -1,7 +1,7 @@
 ##
 # Remove extra users and files
 
-require 'FileUtils'
+require 'fileutils'
 
 @config['cleanup']['users'].each do |user|
   puts "Removing user: #{user}"
