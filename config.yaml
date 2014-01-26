@@ -51,7 +51,7 @@ templates:
 commands:
   chroot:
     - usermod -s /usr/bin/zsh root
-    - timedatectl set-timezone US/Eastern
+    - ln -s ../usr/share/zoneinfo/US/Eastern /etc/localtime
     - locale-gen
     - ln -s /root/.dotdotdot.conf /root/.../conf
     - /root/.../... update
