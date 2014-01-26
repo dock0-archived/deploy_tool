@@ -23,6 +23,8 @@ kernel:
   tmpdir: ./tmp
   version: 3.13
   revision: 3
+  initcpio_helpers: ./initcpio
+  modules: 'base,udev,lvm2,dock0'
   options:
     root: /dev/xvda
     archisodevice: /dev/xvda

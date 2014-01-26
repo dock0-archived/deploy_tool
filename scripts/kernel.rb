@@ -17,10 +17,12 @@ FileUtils.mkdir_p "#{@config['paths']['mount']}/boot/grub"
 FileUtils.cp location, "#{@config['paths']['mount']}/boot/vmlinuz"
 
 puts "Generating the initrd"
+initcpio_path = @config['kernel']['initcpio_helpers'] + '/.'
+FileUtils.cp_r initcpio_path, '/usr/lib/initcpio'
 FileUtils.mkdir_p "/lib/modules/#{@config['kernel']['version']}_#{@config['kernel']['revision']}"
 `mkinitcpio \
   -c /dev/null \
-  -A 'base,udev,lvm2,archiso' \
+  -A #{@config['kernel']['modules']} \
   -g #{@config['paths']['mount']}/boot/initrd.img \
   -k #{@config['kernel']['version']}_#{@config['kernel']['revision']}
 `
