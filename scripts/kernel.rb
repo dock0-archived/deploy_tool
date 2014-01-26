@@ -4,15 +4,15 @@
 require 'fileutils'
 
 puts "Rolling the kernel: #{@config['kernel']['version']}_#{@config['kernel']['revision']}"
-location = run "roller.py \
+system "roller.py \
   -s \
   -k #{@config['kernel']['version']} \
   -c #{@config['kernel']['version']} \
   -r #{@config['kernel']['revision']} \
-  -b #{@config['kernel']['tmpdir']}/tmp \
+  -b #{@config['kernel']['tmpdir']} \
   -d #{@config['kernel']['configs']}
 "
-
+location = "@config['kernel']['tmpdir']}/sources/linux-#{@config['kernel']['version']}/arch/x86/boot/bzImage"
 FileUtils.mkdir_p "#{@config['paths']['mount']}/boot/grub"
 FileUtils.cp location, "#{@config['paths']['mount']}/boot/vmlinuz"
 
