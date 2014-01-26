@@ -10,7 +10,7 @@ location = run "roller.py \
   -c #{@config['kernel']['version']} \
   -r #{@config['kernel']['revision']} \
   -b #{@config['kernel']['tmpdir']}/tmp \
-  -d #{@config['kernel']['configs']}/kernels
+  -d #{@config['kernel']['configs']}
 "
 
 FileUtils.mkdir_p "#{@config['paths']['mount']}/boot/grub"
