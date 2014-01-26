@@ -1,7 +1,7 @@
 ##
 # Roll the new kernel
 
-require 'FileUtils'
+require 'fileutils'
 
 puts "Rolling the kernel: #{@config['kernel']['version']}_#{@config['kernel']['revision']}"
 location = run "roller.py \

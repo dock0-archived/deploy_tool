@@ -7,6 +7,6 @@ require 'erb'
   puts "Handling template: #{path}"
   full_path = "#{@config['paths']['build']}/#{path}"
   template = File.read full_path
-  parsed = ERB.new(template).result
+  parsed = ERB.new(template).result(binding)
   File.open(full_path, 'w') { |fh| fh.write parsed }
 end
