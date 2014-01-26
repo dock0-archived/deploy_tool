@@ -1,17 +1,20 @@
 ---
-build_dir: ./build
-config_dir: ./configs
-device_path: /dev/xvdc
-mount_path: /mnt/dock0
-lvm_path: /dev/xvdd
-vg_name: dock0
-lvs:
-  cowland:
-    size: 5G
-    fs: ext4
-  docker:
-    size: 20G
-    fs: ext4
+paths:
+  build: ./build
+  device: /dev/xvdc
+  mount: /mnt/dock0
+  package_list: ./packages
+  overlay: ./overlay
+lvm:
+  device: /dev/xvdd
+  name: dock0
+  lvs:
+    cowland:
+      size: 5G
+      fs: ext4
+    docker:
+      size: 20G
+      fs: ext4
 domain: a-rwx.org
 admin_email: admin@lesaker.org
 kernel:

@@ -1,12 +1,12 @@
 ##
 # Prepare LVM device
 
-`vgremove -f #{CONFIG['vg_name']}`
-`pvremove #{CONFIG['lvm_path']}`
-`pvcreate #{CONFIG['lvm_path']}`
-`vgcreate #{CONFIG['vg_name']} #{CONFIG['lvm_path']}`
+`vgremove -f #{@config['lvm']['name']}`
+`pvremove #{@config['lvm']['device']}`
+`pvcreate #{@config['lvm']['device']}`
+`vgcreate #{@config['lvm']['name']} #{@config['lvm']['device']}`
 
-CONFIG['lvs'].each do |name, options|
-  `lvcreate -L #{options['size']} -n #{name} #{CONFIG['vg_name'}`
-  `mkfs -t #{options['fs']} /dev/#{CONFIG['vg_name'}/#{name}`
+@config['lvm']['lvs'].each do |name, options|
+  `lvcreate -L #{options['size']} -n #{name} #{@config['lvm']['name']}`
+  `mkfs -t #{options['fs']} /dev/#{@config['lvm']['name']}/#{name}`
 end

@@ -3,10 +3,10 @@
 
 require 'FileUtils'
 
-CONFIG['cleanup']['users'].each do |user|
-  `arch-chroot #{CONFIG['build_dir']} userdel #{user}`
+@config['cleanup']['users'].each do |user|
+  `arch-chroot #{@config['paths']['mount']} userdel #{user}`
 end
 
-CONFIG['cleanup']['paths'].each do |path|
-  FileUtils.rm_rf "#{CONFIG['build_dir']}/#{path}"
+@config['cleanup']['paths'].each do |path|
+  FileUtils.rm_rf "#{@config['paths']['mount']}/#{path}"
 end
