@@ -1,0 +1,51 @@
+---
+build_dir: ./build
+config_dir: ./configs
+device_path: /dev/xvdc
+mount_path: /mnt/dock0
+lvm_path: /dev/xvdd
+vg_name: dock0
+lvs:
+  cowland:
+    size: 5G
+    fs: ext4
+  docker:
+    size: 20G
+    fs: ext4
+domain: a-rwx.org
+admin_email: admin@lesaker.org
+kernel:
+  version: 3.13
+  revision: 3
+  options:
+    root: /dev/xvda
+    archisodevice: /dev/xvda
+    archisobasedir: /
+    cow_device: /dev/dock0/cowland
+cleanup:
+  users:
+    - ftp
+  paths:
+    - srv/ftp
+    - srv/http
+    - etc/systemd/system/getty.target.wants/getty@tty1.service
+    - etc/skel/.bashrc
+    - etc/skel/.bash_logout
+    - etc/skel/.bash_profile
+templates:
+  - etc/mail/exim.conf
+  - etc/mail/aliases
+  - etc/hostname
+  - etc/hosts
+  - etc/netctl/main
+commands:
+  chroot:
+    - usermod -s /usr/bin/zsh root
+    - timedatectl set-timezone US/Eastern
+    - locale-gen
+    - ln -s /root/.dotdotdot.conf /root/.../conf
+    - /root/.../... update
+    - /root/.../... install
+    - /opt/scripts/script_sync /opt/scripts
+    - /opt/scripts/key_sync /opt/keys/default /root/.ssh/authorized_keys quiet
+...

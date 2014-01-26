@@ -1,0 +1,12 @@
+---
+hostname: olhado
+networking:
+  ipv4_addrs:
+    - 173.255.193.119/24
+    - 192.168.128.19/17
+  ipv4_gateway: 173.255.193.1
+  ipv6_addrs:
+    - 2600:3c00::f03c:91ff:fedf:c24d/64
+    - 2600:3c00:e000:0011::1/64
+  ipv6_gateway: fe80::1
+...
