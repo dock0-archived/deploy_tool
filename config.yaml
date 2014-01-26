@@ -2,10 +2,12 @@
 paths:
   device: /dev/xvdc
   mount: /mnt/dock0
+  build_file: ./build.fs
   build: ./build
   package_list: ./packages
   overlay: ./overlay
   scripts: ./scripts
+root_size: 1024
 lvm:
   device: /dev/xvdd
   name: dock0

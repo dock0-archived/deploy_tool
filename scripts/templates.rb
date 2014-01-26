@@ -1,6 +1,8 @@
 ##
 # Process template files using provided config
 
+require 'erb'
+
 @config['templates'].each do |path|
   puts "Handling template: #{path}"
   full_path = "#{@config['paths']['build']}/#{path}"

@@ -4,14 +4,14 @@
 require 'FileUtils'
 
 puts "Rolling the kernel: #{@config['kernel']['version']}_#{@config['kernel']['revision']}"
-location = `roller.py \
+location = run "roller.py \
   -s \
   -k #{@config['kernel']['version']} \
   -c #{@config['kernel']['version']} \
   -r #{@config['kernel']['revision']} \
   -b #{@config['kernel']['tmpdir']}/tmp \
   -d #{@config['kernel']['configs']}/kernels
-`
+"
 
 FileUtils.mkdir_p "#{@config['paths']['mount']}/boot/grub"
 FileUtils.cp location, "#{@config['paths']['mount']}/boot/vmlinuz"
@@ -20,12 +20,12 @@ puts "Generating the initrd"
 initcpio_path = @config['kernel']['initcpio_helpers'] + '/.'
 FileUtils.cp_r initcpio_path, '/usr/lib/initcpio'
 FileUtils.mkdir_p "/lib/modules/#{@config['kernel']['version']}_#{@config['kernel']['revision']}"
-`mkinitcpio \
+run "mkinitcpio \
   -c /dev/null \
   -A #{@config['kernel']['modules']} \
   -g #{@config['paths']['mount']}/boot/initrd.img \
   -k #{@config['kernel']['version']}_#{@config['kernel']['revision']}
-`
+"
 
 puts "Creating the grub config"
 

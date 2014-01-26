@@ -5,7 +5,7 @@ require 'FileUtils'
 
 @config['cleanup']['users'].each do |user|
   puts "Removing user: #{user}"
-  `arch-chroot #{@config['paths']['build']} userdel #{user}`
+  run "arch-chroot #{@config['paths']['build']} userdel #{user}"
 end
 
 @config['cleanup']['paths'].each do |path|
