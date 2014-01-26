@@ -1,1 +1,1 @@
-<%= CONFIG['hostname'] %>
+<%= @config['hostname'] %>

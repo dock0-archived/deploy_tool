@@ -32,5 +32,5 @@ operator:	root
 decode:		root
 
 # Person who should get root's mail
-root: <%= CONFIG['admin_email'] %>
+root: <%= @config['admin_email'] %>
 

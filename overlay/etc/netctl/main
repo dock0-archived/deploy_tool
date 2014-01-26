@@ -1,23 +1,23 @@
 Description='main networking config'
 Interface=eth0
 Connection=ethernet
-Hostname='<%= CONFIG['hostname'] %>'
+Hostname='<%= @config['hostname'] %>'
 
 IP=static
 IPCustom=(
-<% CONFIG['networking']['ipv4_addrs'].each do |addr| %>
+<% @config['networking']['ipv4_addrs'].each do |addr| %>
 'addr add dev eth0 <%= addr %> brd +'
 <% end %>
-'route add default via <%= CONFIG['networking']['ipv4_gateway'] %>'
+'route add default via <%= @config['networking']['ipv4_gateway'] %>'
 )
 
 IP6=static
 Address6=(
-<% CONFIG['networking']['ipv6_addrs'].each do |addr| %>
+<% @config['networking']['ipv6_addrs'].each do |addr| %>
 '<%= addr %>'
 <% end %>
 )
-Gateway6='<%= CONFIG['networking']['ipv6_gateway'] %>'
+Gateway6='<%= @config['networking']['ipv6_gateway'] %>'
 
 DNS=(
 '8.8.8.8'
