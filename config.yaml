@@ -2,6 +2,7 @@
 paths:
   device: /dev/xvdc
   mount: /mnt/dock0
+  build: ./build
   package_list: ./packages
   overlay: ./overlay
   scripts: ./scripts
