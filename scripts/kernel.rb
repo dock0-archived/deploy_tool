@@ -3,6 +3,7 @@
 
 require 'FileUtils'
 
+puts "Rolling the kernel: #{@config['kernel']['version']}_#{@config['kernel']['revision']}"
 location = `roller.py \
   -s \
   -k #{@config['kernel']['version']} \
@@ -15,6 +16,7 @@ location = `roller.py \
 FileUtils.mkdir_p "#{@config['paths']['mount']}/boot/grub"
 FileUtils.cp location, "#{@config['paths']['mount']}/boot/vmlinuz"
 
+puts "Generating the initrd"
 FileUtils.mkdir_p "/lib/modules/#{@config['kernel']['version']}_#{@config['kernel']['revision']}"
 `mkinitcpio \
   -c /dev/null \
@@ -23,8 +25,9 @@ FileUtils.mkdir_p "/lib/modules/#{@config['kernel']['version']}_#{@config['kerne
   -k #{@config['kernel']['version']}_#{@config['kernel']['revision']}
 `
 
-kernel_options = @config['kernel']['options'].reduce('') { |a, (k, v)| a + "#{k}=#{v} " }
+puts "Creating the grub config"
 
+kernel_options = @config['kernel']['options'].reduce('') { |a, (k, v)| a + "#{k}=#{v} " }
 grub_config = "timeout 10
 default 0
 
