@@ -14,7 +14,7 @@ location = run "roller.py \
 "
 
 FileUtils.mkdir_p "#{@config['paths']['mount']}/boot/grub"
-FileUtils.cp location, "#{@config['paths']['mount']}/boot/vmlinuz"
+FileUtils.cp location.chomp, "#{@config['paths']['mount']}/boot/vmlinuz"
 
 puts "Generating the initrd"
 initcpio_path = @config['kernel']['initcpio_helpers'] + '/.'
