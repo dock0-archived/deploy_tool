@@ -3,7 +3,7 @@
 
 puts "Removing any old LVM on #{@config['lvm']['name']} or #{@config['lvm']['device']}"
 `vgremove -f #{@config['lvm']['name']} 2>&1`
-`pvremove #{@config['lvm']['device']} 2>&1`
+`pvremove -ff -y #{@config['lvm']['device']} 2>&1`
 
 puts "Creating new PV and VG"
 run "pvcreate #{@config['lvm']['device']}"
