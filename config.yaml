@@ -7,7 +7,7 @@ paths:
   package_list: ./packages
   overlay: ./overlay
   scripts: ./scripts
-root_size: 1024
+root_size: 512
 lvm:
   device: /dev/xvdd
   name: dock0
@@ -34,6 +34,7 @@ kernel:
     cow_device: /dev/dock0/cowland
     cow_directory: /
     cow_persistent: N
+    cowfile_size: 500
 cleanup:
   users:
     - ftp
