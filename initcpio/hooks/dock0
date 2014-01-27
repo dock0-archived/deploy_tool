@@ -175,7 +175,7 @@ archiso_mount_handler() {
     mkdir -p "/run/archiso/cowspace/${cow_directory}"
 
     _mnt_sfs "/run/archiso/bootmnt/root.fs.sfs" "/run/archiso/sfs/root"
-    _mnt_fs "/run/archiso/sfs/root/root.fs" "${newroot}" "/"
+    _mnt_fs "/run/archiso/sfs/root/build.fs" "${newroot}" "/"
 
     if [[ "${copytoram}" == "y" ]]; then
         umount /run/archiso/bootmnt
