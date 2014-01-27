@@ -27,7 +27,7 @@ _mnt_fs() {
     rw_dev=$(losetup --find --show "/run/dock0/cowspace/${img_name}.cow")
     echo ${rw_dev} >> /run/dock0/used_block_devices
 
-    echo "0 ${rw_dev_size} snapshot ${ro_dev} ${rw_dev} N 8" | dmsetup create ${dm_snap_name}
+    echo "0 ${ro_dev_size} snapshot ${ro_dev} ${rw_dev} N 8" | dmsetup create ${dm_snap_name}
 
     _mnt_dev "/dev/mapper/${dm_snap_name}" "${newroot}${mnt}" "-w"
     echo $(readlink -f /dev/mapper/${dm_snap_name}) >> /run/dock0/used_block_devices
