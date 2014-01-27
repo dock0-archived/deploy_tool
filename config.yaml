@@ -32,6 +32,8 @@ kernel:
     archisodevice: /dev/xvda
     archisobasedir: /
     cow_device: /dev/dock0/cowland
+    cow_directory: /
+    cow_persistent: N
 cleanup:
   users:
     - ftp
