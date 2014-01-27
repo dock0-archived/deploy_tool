@@ -2,7 +2,7 @@
 paths:
   device: /dev/xvdc
   mount: /mnt/dock0
-  build_file: ./build.fs
+  build_file: ./root.fs
   build: ./build
   package_list: ./packages
   overlay: ./overlay
@@ -29,11 +29,8 @@ kernel:
   modules: 'base,udev,lvm2,dock0'
   options:
     root: /dev/xvda
-    archisodevice: /dev/xvda
     archisobasedir: /
     cow_device: /dev/dock0/cowland
-    cow_directory: /
-    cow_persistent: N
     cowfile_size: 200
 cleanup:
   users:

@@ -3,13 +3,12 @@ _mnt_fs() {
     local img="${1}"
     local newroot="${2}"
     local mnt="${3}"
-    local img_fullname="${img##*/}";
     local img_name="${img_fullname%%.*}"
-    local dm_snap_name="${dm_snap_prefix}_${img_name}"
+    local dm_snap_name="snap_${img_name}"
     local ro_dev ro_dev_size rw_dev
 
     ro_dev=$(losetup --find --show --read-only "${img}")
-    echo ${ro_dev} >> /run/archiso/used_block_devices
+    echo ${ro_dev} >> /run/dock0/used_block_devices
     ro_dev_size=$(blockdev --getsz ${ro_dev})
     if [[ "${cowfile_size}" == "100" ]]; then
         rw_dev_size=${ro_dev_size}
@@ -18,49 +17,30 @@ _mnt_fs() {
         rw_dev_size=$((ro_dev_size/100*cowfile_size))
     fi
 
-    if [[ "${cow_persistent}" == "P" ]]; then
-        if [[ -f "/run/archiso/cowspace/${cow_directory}/${img_name}.cow" ]]; then
-            msg ":: Found '/run/archiso/cowspace/${cow_directory}/${img_name}.cow', using as persistent."
-        else
-            msg ":: Creating '/run/archiso/cowspace/${cow_directory}/${img_name}.cow' as persistent."
-            dd of="/run/archiso/cowspace/${cow_directory}/${img_name}.cow" count=0 seek=${rw_dev_size} &> /dev/null
-        fi
-    else
-        if [[ -f "/run/archiso/cowspace/${cow_directory}/${img_name}.cow" ]]; then
-            msg ":: Found '/run/archiso/cowspace/${cow_directory}/${img_name}.cow' but non-persistent requested, removing."
-            rm -f "/run/archiso/cowspace/${cow_directory}/${img_name}.cow"
-        fi
-        msg ":: Creating '/run/archiso/cowspace/${cow_directory}/${img_name}.cow' as non-persistent."
-        dd of="/run/archiso/cowspace/${cow_directory}/${img_name}.cow" count=0 seek=${rw_dev_size} &> /dev/null
+    if [[ -f "/run/dock0/cowspace/${img_name}.cow" ]]; then
+        msg ":: Found '${img_name}.cow' but non-persistent requested, removing."
+        rm -f "/run/dock0/cowspace/${img_name}.cow"
     fi
+    msg ":: Creating '${img_name}.cow' as non-persistent."
+    dd of="/run/dock0/cowspace/${img_name}.cow" count=0 seek=${rw_dev_size} &> /dev/null
 
-    rw_dev=$(losetup --find --show "/run/archiso/cowspace/${cow_directory}/${img_name}.cow")
-    echo ${rw_dev} >> /run/archiso/used_block_devices
+    rw_dev=$(losetup --find --show "/run/dock0/cowspace/${img_name}.cow")
+    echo ${rw_dev} >> /run/dock0/used_block_devices
 
-    echo "0 ${ro_dev_size} snapshot ${ro_dev} ${rw_dev} ${cow_persistent} 8" | dmsetup create ${dm_snap_name}
+    echo "0 ${rw_dev_size} snapshot ${ro_dev} ${rw_dev} N 8" | dmsetup create ${dm_snap_name}
 
     _mnt_dev "/dev/mapper/${dm_snap_name}" "${newroot}${mnt}" "-w"
-    echo $(readlink -f /dev/mapper/${dm_snap_name}) >> /run/archiso/used_block_devices
+    echo $(readlink -f /dev/mapper/${dm_snap_name}) >> /run/dock0/used_block_devices
 }
 
 # args: /path/to/image_file, mountpoint
 _mnt_sfs() {
     local img="${1}"
     local mnt="${2}"
-    local img_fullname="${img##*/}"
     local sfs_dev
 
-    if [[ "${copytoram}" == "y" ]]; then
-        msg -n ":: Copying squashfs image to RAM..."
-        if ! cp "${img}" "/run/archiso/copytoram/${img_fullname}" ; then
-            echo "ERROR: while copy '${img}' to '/run/archiso/copytoram/${img_fullname}'"
-            launch_interactive_shell
-        fi
-        img="/run/archiso/copytoram/${img_fullname}"
-        msg "done."
-    fi
     sfs_dev=$(losetup --find --show --read-only "${img}")
-    echo ${sfs_dev} >> /run/archiso/used_block_devices
+    echo ${sfs_dev} >> /run/dock0/used_block_devices
     _mnt_dev "${sfs_dev}" "${mnt}" "-r"
 }
 
@@ -91,95 +71,27 @@ _mnt_dev() {
     fi
 }
 
-_verify_checksum() {
-    local _status
-    cd "/run/archiso/bootmnt/${archisobasedir}"
-    md5sum -c checksum.${arch}.md5 > /tmp/checksum.${arch}.log 2>&1
-    _status=$?
-    cd "${OLDPWD}"
-    return ${_status}
-}
-
 run_hook() {
-    [[ -z "${arch}" ]] && arch="$(uname -m)"
-    [[ -z "${cowspace_size}" ]] && cowspace_size="75%"
-    [[ -z "${copytoram_size}" ]] && copytoram_size="75%"
-    [[ -z "${archisobasedir}" ]] && archisobasedir="arch"
-    [[ -z "${dm_snap_prefix}" ]] && dm_snap_prefix="arch"
-    [[ -z "${archisodevice}" ]] && archisodevice="/dev/disk/by-label/${archisolabel}"
     if [[ -z "${cowfile_size}" ]]; then
         cowfile_size="100"
     else
         cowfile_size=${cowfile_size/%}
     fi
-
-    if [[ -n "${cow_label}" ]]; then
-        cow_device="/dev/disk/by-label/${cow_label}"
-        [[ -z "${cow_persistent}" ]] && cow_persistent="P"
-    elif [[ -n "${cow_device}" ]]; then
-        [[ -z "${cow_persistent}" ]] && cow_persistent="P"
-    else
-        cow_persistent="N"
-    fi
-
-    [[ -z "${cow_directory}" ]] && cow_directory="persistent_${archisolabel}/${arch}"
-
-    # set mount handler for archiso
-    mount_handler="archiso_mount_handler"
+    mount_handler="dock0_mount_handler"
 }
 
-# This function is called normally from init script, but it can be called
-# as chain from other mount handlers.
 # args: /path/to/newroot
-archiso_mount_handler() {
+dock0_mount_handler() {
     local newroot="${1}"
 
-    if ! mountpoint -q "/run/archiso/bootmnt"; then
-        _mnt_dev "${archisodevice}" "/run/archiso/bootmnt" "-r"
-        if [[ "${copytoram}" != "y" ]]; then
-            echo $(readlink -f ${archisodevice}) >> /run/archiso/used_block_devices
-        fi
+    if ! mountpoint -q "/run/dock0/bootmnt"; then
+        _mnt_dev "${root}" "/run/dock0/bootmnt" "-r"
     fi
 
-    if [[ "${checksum}" == "y" ]]; then
-        if [[ -f "/run/archiso/bootmnt/${archisobasedir}/checksum.${arch}.md5" ]]; then
-            msg -n ":: Self-test requested, please wait..."
-            if _verify_checksum; then
-                msg "done. Checksum is OK, continue booting."
-            else
-                echo "ERROR: one or more files are corrupted"
-                echo "see /tmp/checksum.${arch}.log for details"
-                launch_interactive_shell
-            fi
-        else
-            echo "ERROR: checksum=y option specified but checksum.${arch}.md5 not found"
-            launch_interactive_shell
-        fi
-    fi
+    _mnt_dev "${cow_device}" "/run/dock0/cowspace" "-r"
+    echo $(readlink -f ${cow_device}) >> /run/dock0/used_block_devices
+    mount -o remount,rw "/run/dock0/cowspace"
 
-    if [[ "${copytoram}" == "y" ]]; then
-        msg ":: Mounting /run/archiso/copytoram (tmpfs) filesystem, size=${copytoram_size}"
-        mkdir -p /run/archiso/copytoram
-        mount -t tmpfs -o "size=${copytoram_size}",mode=0755 copytoram /run/archiso/copytoram
-    fi
-
-    if [[ -n "${cow_device}" ]]; then
-        _mnt_dev "${cow_device}" "/run/archiso/cowspace" "-r"
-        echo $(readlink -f ${cow_device}) >> /run/archiso/used_block_devices
-        mount -o remount,rw "/run/archiso/cowspace"
-    else
-        msg ":: Mounting /run/archiso/cowspace (tmpfs) filesystem, size=${cowspace_size}..."
-        mkdir -p /run/archiso/cowspace
-        mount -t tmpfs -o "size=${cowspace_size}",mode=0755 cowspace /run/archiso/cowspace
-    fi
-    mkdir -p "/run/archiso/cowspace/${cow_directory}"
-
-    _mnt_sfs "/run/archiso/bootmnt/root.fs.sfs" "/run/archiso/sfs/root"
-    _mnt_fs "/run/archiso/sfs/root/build.fs" "${newroot}" "/"
-
-    if [[ "${copytoram}" == "y" ]]; then
-        umount /run/archiso/bootmnt
-    fi
+    _mnt_sfs "/run/dock0/bootmnt/root.fs.sfs" "/run/dock0/sfs/"
+    _mnt_fs "/run/dock0/sfs/root.fs" "${newroot}" "/"
 }
-
-# vim:ft=sh:ts=4:sw=4:et:
