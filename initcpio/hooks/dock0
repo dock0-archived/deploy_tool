@@ -3,8 +3,8 @@ _mnt_fs() {
     local img="${1}"
     local newroot="${2}"
     local mnt="${3}"
-    local img_name="${img_fullname%%.*}"
-    local dm_snap_name="snap_${img_name}"
+    local img_fullname="${img##*/}";
+    local dm_snap_name="${img_fullname%%.*}"
     local ro_dev ro_dev_size rw_dev
 
     ro_dev=$(losetup --find --show --read-only "${img}")
