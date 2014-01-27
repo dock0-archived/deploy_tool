@@ -7,7 +7,7 @@ paths:
   package_list: ./packages
   overlay: ./overlay
   scripts: ./scripts
-root_size: 1024
+root_size: 4096
 lvm:
   device: /dev/xvdd
   name: dock0
@@ -31,7 +31,7 @@ kernel:
     root: /dev/xvda
     archisobasedir: /
     cow_device: /dev/dock0/cowland
-    cowfile_size: 200
+    cowfile_size: 100
 cleanup:
   users:
     - ftp
