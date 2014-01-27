@@ -36,7 +36,8 @@ default 0
 title dock0
 root (hd0)
 kernel /boot/vmlinuz #{kernel_options}
-initrd /boot/initrd.img"
+initrd /boot/initrd.img
+"
 
 File.open("#{@config['paths']['mount']}/boot/grub/menu.lst", 'w') do |fh|
   fh.write grub_config
