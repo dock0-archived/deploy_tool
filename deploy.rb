@@ -86,10 +86,6 @@ devices['maker'] = API.linode.disk.createfromstackscript(
 
 config = API.linode.config.create(
   kernelid: KERNEL_ID,
-  helper_depmod: false,
-  helper_xen: false,
-  helper_disableupdatedb: false,
-  devtmpfs_automount: false,
   disklist: devices.values_at('maker', 'swap', 'root', 'lvm').join(','),
   label: 'dock0',
   linodeid: linode
@@ -102,6 +98,9 @@ wait_for_jobs linode
 API.linode.config.update(
   linodeid: linode,
   configid: config,
+  helper_depmod: false,
+  helper_xen: false,
+  helper_disableupdatedb: false,
   devtmpfs_automount: false,
   disklist: devices.values_at('root', 'swap', 'lvm').join(','),
   kernelid: PV_GRUB_ID
