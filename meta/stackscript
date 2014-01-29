@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#<udf name="name" label="Hostname">
+
+sed -i 's|/sbin/agetty|/sbin/agetty --autologin root|' /usr/lib/systemd/system/serial-getty\@.service
+systemctl --system daemon-reload
+
+cat <<EOF > /root/.profile
+systemctl start haveged
+
+pacman-key --init
+pacman-key --populate archlinux
+
+pacman -Syu --noconfirm git ruby arch-install-scripts python python-pip base-devel bc squashfs-tools
+
+pip install roller
+gem install --no-user-install dock0
+
+git clone --recursive git://github.com/akerl/my_dock0 /opt/my_dock0
+
+echo "" > /proc/sys/kernel/hotplug
+
+dock0 /opt/my_dock0/config.yaml /opt/my_dock0/configs/$NAME.yaml
+EOF
+
+shutdown
+

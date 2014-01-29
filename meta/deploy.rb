@@ -81,7 +81,7 @@ devices['maker'] = API.linode.disk.createfromstackscript(
   rootpass: root_pw,
   label: 'maker',
   size: 7424,
-  stackscriptudfresponses: { hostname: HOSTNAME }.to_json
+  stackscriptudfresponses: { name: HOSTNAME }.to_json
 )[:diskid]
 
 config = API.linode.config.create(
