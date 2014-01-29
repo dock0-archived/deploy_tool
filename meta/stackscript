@@ -20,7 +20,9 @@ git clone --recursive git://github.com/akerl/my_dock0 /opt/my_dock0
 echo "" > /proc/sys/kernel/hotplug
 
 dock0 /opt/my_dock0/config.yaml /opt/my_dock0/configs/$NAME.yaml
-EOF
 
 shutdown
+EOF
+
+echo "Done kickstarting!"
 
