@@ -35,6 +35,7 @@ kernel:
 cleanup:
   users:
     - ftp
+    - http
   paths:
     - srv/ftp
     - srv/http
@@ -50,6 +51,7 @@ templates:
   - etc/netctl/main
 commands:
   chroot:
+    - sed 's/^root::/root:x:/' /etc/shadow
     - usermod -s /usr/bin/zsh root
     - ln -s ../usr/share/zoneinfo/US/Eastern /etc/localtime
     - locale-gen
