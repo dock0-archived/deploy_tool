@@ -2,9 +2,9 @@
 hostname: breakme
 networking:
   ipv4_addrs:
-    - 23.239.13.16/24
-    - 192.168.140.79/17
-  ipv4_gateway: 23.239.13.1
+    - 192.155.93.73/24
+    - 192.168.172.114/17
+  ipv4_gateway: 192.155.93.1
   ipv6_addrs:
     - 2600:3c03::f03c:91ff:fe6e:510b/64
   ipv6_gateway: fe80::1
