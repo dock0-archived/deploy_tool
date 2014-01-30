@@ -23,8 +23,8 @@ admin_email: admin@lesaker.org
 kernel:
   configs: ./kernels
   tmpdir: ./tmp
-  version: 3.13
-  revision: 3
+  version: 3.13.1
+  revision: 1
   initcpio_helpers: ./initcpio
   modules: 'base,udev,lvm2,dock0'
   options:
