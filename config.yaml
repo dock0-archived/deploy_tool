@@ -60,4 +60,5 @@ commands:
     - /root/.../... install
     - /opt/scripts/script_sync /opt/scripts
     - /opt/scripts/key_sync /opt/keys/default /root/.ssh/authorized_keys quiet
+    - chmod -R 700 /var/lib/docker
 ...
