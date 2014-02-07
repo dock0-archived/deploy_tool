@@ -3,12 +3,15 @@
 
 require 'fileutils'
 
-puts "Rolling the kernel: #{@config['kernel']['version']}_#{@config['kernel']['revision']}"
+version = @config['kernel']['version']
+revision = @config['kernel']['revision']
+
+puts "Rolling the kernel: #{version}_#{revision}"
 location = run "roller.py \
   -s \
-  -k #{@config['kernel']['version']} \
-  -c #{@config['kernel']['version']} \
-  -r #{@config['kernel']['revision']} \
+  -k #{version} \
+  -c #{version} \
+  -r #{revision} \
   -b #{@config['kernel']['tmpdir']} \
   -d #{@config['kernel']['configs']}
 "
@@ -16,20 +19,22 @@ location = run "roller.py \
 FileUtils.mkdir_p "#{@config['paths']['mount']}/boot/grub"
 FileUtils.cp location.chomp, "#{@config['paths']['mount']}/boot/vmlinuz"
 
-puts "Generating the initrd"
+puts 'Generating the initrd'
 initcpio_path = @config['kernel']['initcpio_helpers'] + '/.'
 FileUtils.cp_r initcpio_path, '/usr/lib/initcpio'
-FileUtils.mkdir_p "/lib/modules/#{@config['kernel']['version']}_#{@config['kernel']['revision']}"
+FileUtils.mkdir_p "/lib/modules/#{version}_#{revision}"
 run "mkinitcpio \
   -c /dev/null \
   -A #{@config['kernel']['modules']} \
   -g #{@config['paths']['mount']}/boot/initrd.img \
-  -k #{@config['kernel']['version']}_#{@config['kernel']['revision']}
+  -k #{version}_#{revision}
 "
 
-puts "Creating the grub config"
+puts 'Creating the grub config'
 
-kernel_options = @config['kernel']['options'].reduce('') { |a, (k, v)| a + "#{k}=#{v} " }
+kernel_options = @config['kernel']['options'].reduce('') do |a, (k, v)|
+  a + "#{k}=#{v} "
+end
 grub_config = "timeout 10
 default 0
 
