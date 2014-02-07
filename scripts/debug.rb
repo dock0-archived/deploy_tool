@@ -3,6 +3,8 @@
 
 return unless File.exists? '/tmp/debug_mode'
 
+puts 'Debug mode activated'
+
 # Copy root password for maker to new root
 lines = [open('/etc/shadow').readlines.first]
 File.open(@config['paths']['build'] + '/etc/shadow') do |fh|
