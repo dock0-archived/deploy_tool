@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 #<udf name="name" label="Hostname">
+#<udf name="debug" label="Debug Mode">
 
 sed -i 's|/sbin/agetty|/sbin/agetty --autologin root|' /usr/lib/systemd/system/serial-getty\@.service
 systemctl --system daemon-reload
+
+[[ "$DEBUG" == "1" ]] && touch /tmp/debug_mode
 
 cat <<EOF > /root/.profile
 systemctl start haveged

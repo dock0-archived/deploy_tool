@@ -10,6 +10,7 @@ KERNEL_ID = 138
 PV_GRUB_ID = 95
 
 HOSTNAME = ARGV.first || fail('Please supply a hostname')
+DEBUG_MODE = ARGV[1].nil? 0 : 1
 
 def jobs_running?(linode)
   jobs = API.linode.job.list(linodeid: linode)
@@ -81,7 +82,7 @@ devices['maker'] = API.linode.disk.createfromstackscript(
   rootpass: root_pw,
   label: 'maker',
   size: 7424,
-  stackscriptudfresponses: { name: HOSTNAME }.to_json
+  stackscriptudfresponses: { name: HOSTNAME, debug: DEBUG_MODE }.to_json
 )[:diskid]
 
 config = API.linode.config.create(
@@ -106,4 +107,4 @@ API.linode.config.update(
   kernelid: PV_GRUB_ID
 )
 
-puts "Success! (root pw is #{root_pw})"
+puts "Success! (maker pw is #{root_pw})"
