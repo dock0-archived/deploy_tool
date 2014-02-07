@@ -10,7 +10,7 @@ KERNEL_ID = 138
 PV_GRUB_ID = 95
 
 HOSTNAME = ARGV.first || fail('Please supply a hostname')
-DEBUG_MODE = ARGV[1].nil? 0 : 1
+DEBUG_MODE = ARGV[1].nil? ? 0 : 1
 
 def jobs_running?(linode)
   jobs = API.linode.job.list(linodeid: linode)
