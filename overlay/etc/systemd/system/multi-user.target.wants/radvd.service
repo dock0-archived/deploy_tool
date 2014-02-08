@@ -1,0 +1,10 @@
+[Unit]
+Description=IPv6 Router Advertisement Daemon
+After=network.target docker.service
+
+[Service]
+ExecStart=/usr/bin/radvd --nodaemon --logmethod=stderr
+
+[Install]
+WantedBy=multi-user.target
+

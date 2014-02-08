@@ -25,6 +25,7 @@ pacman
 procps-ng
 psmisc
 python2
+radvd
 s-nail
 squashfs-tools
 strace
