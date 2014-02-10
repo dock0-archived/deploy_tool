@@ -1,5 +1,4 @@
 base-devel
-cpio
 cronie
 dnsutils
 docker
@@ -9,7 +8,6 @@ git
 haveged
 htop
 inetutils
-iotop
 iputils
 lockfile-progs
 logrotate
@@ -24,8 +22,8 @@ openssh
 pacman
 procps-ng
 psmisc
-python2
 radvd
+ruby
 s-nail
 squashfs-tools
 strace
