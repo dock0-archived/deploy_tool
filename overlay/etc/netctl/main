@@ -4,12 +4,12 @@ Connection=ethernet
 Hostname='<%= @config['hostname'] %>'
 
 IP=static
-IPCustom=(
+Address=(
 <% @config['networking']['ipv4_addrs'].each do |addr| %>
-'addr add dev eth0 <%= addr %> brd +'
+'<%= addr %>'
 <% end %>
-'route add default via <%= @config['networking']['ipv4_gateway'] %>'
 )
+Route=('default via <%= @config['networking']['ipv4_gateway'] %>')
 
 IP6=static
 Address6=(
