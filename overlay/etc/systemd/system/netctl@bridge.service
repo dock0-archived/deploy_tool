@@ -1,7 +1,0 @@
-.include /usr/lib/systemd/system/netctl@.service
-
-[Unit]
-Description=Docker bridge
-BindsTo=sys-subsystem-net-devices-eth0.device
-After=sys-subsystem-net-devices-eth0.device
-After="netctl@main.service"
