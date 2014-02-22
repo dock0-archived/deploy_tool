@@ -29,6 +29,3 @@ DNSOptions=(
 'rotate'
 )
 
-ExecUpPost='netctl start bridge'
-ExecDownPre='netctl stop bridge'
-
