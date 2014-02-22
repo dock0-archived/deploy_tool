@@ -1,7 +1,8 @@
 Description="Docker bridge"
 Interface=docker0
 Connection=bridge
-BindsToInterfaces=(main)
+After=(main)
+BindsToInterfaces=(eth0)
 IP=static
 Address=('172.16.0.1/16')
 Route=('172.16.0.0/16 via 172.16.0.1')
