@@ -25,7 +25,7 @@ def wait_for_jobs(linode)
   puts
 end
 
-api_key = Keychain.open('/Volumes/akerl-vault/archer.keychain')
+api_key = Keychain.open('/Volumes/akerl-vault/dock0.keychain')
 api_key = api_key.generic_passwords.where(service: 'linode-api')
 api_key = api_key.first.password
 
