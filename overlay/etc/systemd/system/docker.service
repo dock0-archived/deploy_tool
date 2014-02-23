@@ -5,7 +5,7 @@ After=netctl@bridge.service
 Before=iptables.service
 
 [Service]
-ExecStart=/usr/bin/docker -d --iptables=false -b=dock0
+ExecStart=/usr/bin/docker -d --iptables=false -b=docker0
 Restart=on-failure
 
 [Install]
