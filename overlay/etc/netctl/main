@@ -9,7 +9,7 @@ Address=(
 '<%= addr %>'
 <% end %>
 )
-Route=('default via <%= @config['networking']['ipv4_gateway'] %>')
+Routes=('default via <%= @config['networking']['ipv4_gateway'] %>')
 
 IP6=static
 Address6=(
@@ -29,6 +29,4 @@ DNSOptions=(
 'rotate'
 )
 
-ExecUpPost='netctl start bridge'
-ExecDownPre='netctl stop bridge'
 
