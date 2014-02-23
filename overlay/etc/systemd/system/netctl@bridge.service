@@ -1,0 +1,5 @@
+.include /usr/lib/systemd/system/netctl@.service
+
+[Unit]
+Description=Docker bridge
+After="netctl@main.service"

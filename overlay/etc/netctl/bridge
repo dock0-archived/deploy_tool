@@ -4,4 +4,4 @@ Connection=bridge
 After=(main)
 IP=static
 Address=('172.16.0.1/16')
-Route=('172.16.0.0/16 via 172.16.0.1')
+Routes=('172.16.0.0/16 via 172.16.0.1')

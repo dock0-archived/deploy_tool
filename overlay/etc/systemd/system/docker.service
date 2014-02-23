@@ -1,7 +1,7 @@
 [Unit]
 Description=Docker Application Container Engine
 Documentation=http://docs.docker.io
-After=network.target
+After=netctl@bridge.service
 
 [Service]
 ExecStart=/usr/bin/docker -d --iptables=false -b=docker0
