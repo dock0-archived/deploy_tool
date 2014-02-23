@@ -1,5 +1,5 @@
 Description="Docker bridge"
-Interface=docker0
+Interface=dock0
 Connection=bridge
 After=(main)
 IP=static
