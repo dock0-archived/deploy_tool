@@ -25,5 +25,6 @@ COMMIT
 :OUTPUT ACCEPT [0:0]
 -A INPUT -p icmp -j ACCEPT
 -A INPUT -i lo -j ACCEPT
+-A INPUT -i docker0 -j ACCEPT
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 COMMIT
