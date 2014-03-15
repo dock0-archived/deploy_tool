@@ -7,7 +7,7 @@ My configuration for [dock0](https://github.com/dock0/dock0)
 
 ## Prerequisites
 
-    gem install ruby-keychain
+    gem install ruby-keychain linodeapi
 
 ## License
 
