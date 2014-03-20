@@ -16,9 +16,7 @@ location = run "roller.py \
   -d #{@config['kernel']['configs']}
 "
 
-sleep 3
 FileUtils.mkdir_p "#{@config['paths']['mount']}/boot/grub"
-puts "I want to copy #{location.chomp} to #{@config['paths']['mount']}/boot/vmlinuz"
 FileUtils.cp location.chomp, "#{@config['paths']['mount']}/boot/vmlinuz"
 
 puts 'Generating the initrd'
