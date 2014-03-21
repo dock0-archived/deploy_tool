@@ -58,7 +58,7 @@ wait_for_jobs linode
 
 devices = [
   ['swap', 256, :swap],
-  ['root', 512, :ext3],
+  ['root', 6144, :ext3],
   ['lvm', 40_960, :raw]
 ]
 
@@ -81,7 +81,7 @@ devices['maker'] = API.linode.disk.createfromstackscript(
   distributionid: DISTRIBUTION_ID,
   rootpass: root_pw,
   label: 'maker',
-  size: 7424,
+  size: 1024,
   stackscriptudfresponses: { name: HOSTNAME, debug: DEBUG_MODE }.to_json
 )[:diskid]
 
