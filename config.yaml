@@ -16,7 +16,10 @@ lvm:
       size: 5G
       fs: ext4
     docker:
-      size: 35G
+      size: 30G
+      fs: ext4
+    build:
+      size: 5G
       fs: ext4
 domain: a-rwx.org
 admin_email: admin@lesaker.org
