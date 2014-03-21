@@ -22,7 +22,7 @@ domain: a-rwx.org
 admin_email: admin@lesaker.org
 kernel:
   configs: ./kernels
-  tmpdir: ./tmp
+  tmpdir: /mnt/dock/tmp_kernel
   version: 3.13.6
   revision: 1
   initcpio_helpers: ./initcpio
