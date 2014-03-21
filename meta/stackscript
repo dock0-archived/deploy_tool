@@ -25,9 +25,7 @@ git clone --recursive git://github.com/dock0/host_config /opt/host_config
 
 echo "" > /proc/sys/kernel/hotplug
 
-dock0 /opt/host_config/config.yaml /opt/host_config/configs/$NAME.yaml
-
-shutdown
+dock0 /opt/host_config/config.yaml /opt/host_config/configs/$NAME.yaml && shutdown
 EOF
 chmod a+x /root/kickstart
 
