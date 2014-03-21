@@ -19,7 +19,7 @@ lvm:
       size: 30G
       fs: ext4
     build:
-      size: 5G
+      size: 4.9G
       fs: ext4
 domain: a-rwx.org
 admin_email: admin@lesaker.org
