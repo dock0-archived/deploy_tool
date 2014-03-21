@@ -2,7 +2,7 @@
 paths:
   device: /dev/xvdc
   mount: /mnt/dock0
-  build_file: /mnt/dock0/tmp_root.fs
+  build_file: /mnt/dock0/root.fs
   build: ./build
   package_list: ./packages
   overlay: ./overlay
