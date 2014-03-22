@@ -49,4 +49,3 @@ File.open("#{@config['paths']['mount']}/boot/grub/menu.lst", 'w') do |fh|
 end
 
 FileUtils.remove_dir @config['kernel']['tmpdir']
-
