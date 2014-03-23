@@ -31,6 +31,12 @@ api_key = api_key.first.password
 
 API = LinodeAPI::Raw.new(apikey: api_key)
 
+puts 'Updating stackscript'
+API.stackscript.update(
+  stackscriptid: STACKSCRIPT_ID,
+  script: File.read(File.expand_path('..', __FILE__) + '/stackscript')
+)
+
 linode = API.linode.list.find { |l| l[:label] == HOSTNAME }
 linode = linode.fetch(:linodeid) { fail 'Linode not found' }
 
