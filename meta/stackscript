@@ -11,6 +11,8 @@ if [[ "$DEBUG" == '1' ]] ; then
 fi
 
 cat <<EOF > /root/kickstart
+set -e
+
 systemctl start haveged
 
 pacman-key --init
