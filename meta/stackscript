@@ -11,13 +11,12 @@ if [[ "$DEBUG" == '1' ]] ; then
 fi
 
 cat <<EOF > /root/kickstart
-set -e
-
 systemctl start haveged
 
 pacman-key --init
 pacman-key --populate archlinux
 
+pacman -Syu --noconfirm
 pacman -Syu --noconfirm git ruby arch-install-scripts python python-pip base-devel bc squashfs-tools
 
 pip install roller
