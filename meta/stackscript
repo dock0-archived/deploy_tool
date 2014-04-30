@@ -13,8 +13,10 @@ fi
 cat <<EOF > /root/kickstart
 systemctl start haveged
 
-pacman-key --init
-pacman-key --populate archlinux
+if [ ! -d /etc/pacman.d/gnupg ] ; then
+    pacman-key --init
+    pacman-key --populate
+fi
 
 pacman -Syu --noconfirm git ruby arch-install-scripts python python-pip base-devel bc squashfs-tools
 
