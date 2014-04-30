@@ -45,12 +45,14 @@ existing = {
   disks: API.linode.disk.list(linodeid: linode)
 }
 
-existing.each do |type, things|
-  puts "#{type.capitalize}:"
-  things.each { |thing| puts "    #{thing[:label]}" }
+if existing.values.reduce(:+).size > 0
+  existing.each do |type, things|
+    puts "#{type.capitalize}:"
+    things.each { |thing| puts "    #{thing[:label]}" }
+  end
+  puts 'Hit enter to confirm deletion of those configs and disks'
+  STDIN.gets
 end
-puts 'Hit enter to confirm deletion of those configs and disks'
-STDIN.gets
 
 API.linode.shutdown(linodeid: linode)
 existing[:configs].each do |config|
