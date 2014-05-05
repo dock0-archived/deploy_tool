@@ -84,10 +84,10 @@ run_hook() {
 dock0_mount_handler() {
     local newroot="${1}"
 
-    _mnt_dev "${root}" "/run/dock0/bootmnt"
+    _mnt_dev "${root}" "/run/dock0/bootmnt" "-w"
     echo $(readlink -f ${root}) >> /run/archiso/used_block_devices
 
-    _mnt_dev "${cow_device}" "/run/dock0/cowspace"
+    _mnt_dev "${cow_device}" "/run/dock0/cowspace" "-w"
     echo $(readlink -f ${cow_device}) >> /run/dock0/used_block_devices
 
     _mnt_sfs "/run/dock0/bootmnt/root.fs.sfs" "/run/dock0/sfs/"
