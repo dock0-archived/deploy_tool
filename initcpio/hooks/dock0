@@ -84,13 +84,11 @@ run_hook() {
 dock0_mount_handler() {
     local newroot="${1}"
 
-    if ! mountpoint -q "/run/dock0/bootmnt"; then
-        _mnt_dev "${root}" "/run/dock0/bootmnt" "-r"
-    fi
+    _mnt_dev "${root}" "/run/dock0/bootmnt"
+    echo $(readlink -f ${root}) >> /run/archiso/used_block_devices
 
-    _mnt_dev "${cow_device}" "/run/dock0/cowspace" "-r"
+    _mnt_dev "${cow_device}" "/run/dock0/cowspace"
     echo $(readlink -f ${cow_device}) >> /run/dock0/used_block_devices
-    mount -o remount,rw "/run/dock0/cowspace"
 
     _mnt_sfs "/run/dock0/bootmnt/root.fs.sfs" "/run/dock0/sfs/"
     _mnt_fs "/run/dock0/sfs/root.fs" "${newroot}" "/"
