@@ -13,13 +13,10 @@ lvm:
   name: dock0
   lvs:
     cowland:
-      size: 5G
+      size: 4G
       fs: ext4
     docker:
-      size: 30G
-      fs: ext4
-    build:
-      size: 4.9G
+      size: 35G
       fs: ext4
 domain: a-rwx.org
 admin_email: admin@lesaker.org
