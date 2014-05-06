@@ -84,8 +84,9 @@ run_hook() {
 dock0_mount_handler() {
     local newroot="${1}"
 
-    _mnt_dev "${root}" "/run/dock0/bootmnt" "-w"
-    echo $(readlink -f ${root}) >> /run/dock0/used_block_devices
+    if ! mountpoint -q "/run/dock0/bootmnt"; then
+        _mnt_dev "${root}" "/run/dock0/bootmnt" "-r"
+    fi
 
     _mnt_dev "${cow_device}" "/run/dock0/cowspace" "-r"
     echo $(readlink -f ${cow_device}) >> /run/dock0/used_block_devices
