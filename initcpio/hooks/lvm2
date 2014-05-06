@@ -3,6 +3,7 @@
 run_earlyhook() {
     mkdir /run/lvm
     lvmetad
+    lvm vgchange -ay
 }
 
 run_cleanuphook() {
