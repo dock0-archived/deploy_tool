@@ -17,6 +17,7 @@ lvm2
 mtr
 net-tools
 netctl
+nftables
 nmap
 ntp
 openssh
