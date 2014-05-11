@@ -23,7 +23,7 @@ admin_email: admin@lesaker.org
 kernel:
   configs: ./kernels
   tmpdir: /mnt/dock0/tmp_kernel
-  version: 3.15-rc4
+  version: 3.15-rc5
   revision: 1
   initcpio_helpers: ./initcpio
   modules: 'base,udev,lvm2,dock0'
