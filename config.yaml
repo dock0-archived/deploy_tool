@@ -59,7 +59,7 @@ commands:
     - /root/.../... update
     - /root/.../... install
     - /opt/scripts/script_sync /opt/scripts
-    - /opt/scripts/key_sync /opt/keys/default /root/.ssh/authorized_keys quiet
+    - /opt/scripts/key_sync /opt/keys/strong /root/.ssh/authorized_keys quiet
     - chmod -R 700 /var/lib/docker
     - find /usr/share/locale/ -maxdepth 1 -mindepth 1 -type d ! -name 'en_US' -exec rm -r {} \;
 ...
