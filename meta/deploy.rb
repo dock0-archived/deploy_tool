@@ -5,7 +5,7 @@ require 'linodeapi'
 require 'json'
 
 STACKSCRIPT_ID = 8125
-DISTRIBUTION_ID = 112
+DISTRIBUTION_ID = 128
 KERNEL_ID = 138
 PV_GRUB_ID = 95
 
