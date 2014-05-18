@@ -19,7 +19,7 @@ if [ ! -d /etc/pacman.d/gnupg ] ; then
 fi
 
 pacman -Syu --noconfirm
-pacman -Syu --noconfirm git ruby arch-install-scripts python python-pip base-devel bc squashfs-tools
+pacman -Syu --noconfirm git ruby arch-install-scripts python python-pip base-devel bc squashfs-tools mkinitcpio
 
 pip install roller
 gem install --no-user-install dock0
