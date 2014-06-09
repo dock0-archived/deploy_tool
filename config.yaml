@@ -15,6 +15,12 @@ lvm:
     cowland:
       size: 4G
       fs: ext4
+    docker:
+      size: 20G
+      fs: null
+    metadata:
+      size: 1G
+      fs: null
 domain: a-rwx.org
 admin_email: admin@lesaker.org
 kernel:

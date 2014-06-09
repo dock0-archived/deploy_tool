@@ -15,5 +15,5 @@ run "vgcreate #{name} #{device}"
 @config['lvm']['lvs'].each do |lv_name, options|
   puts "Creating LV: #{lv_name}"
   run "lvcreate -L #{options['size']} -n #{lv_name} #{name}"
-  run "mkfs -t #{options['fs']} /dev/#{name}/#{lv_name}"
+  run "mkfs -t #{options['fs']} /dev/#{name}/#{lv_name}" if options['fs']
 end
