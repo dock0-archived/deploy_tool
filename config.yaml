@@ -63,7 +63,5 @@ commands:
     - /opt/scripts/key_sync /opt/keys/strong /root/.ssh/authorized_keys quiet
     - chmod -R 700 /var/lib/docker
     - find /usr/share/locale/ -maxdepth 1 -mindepth 1 -type d ! -name 'en_US' -exec rm -r {} \;
-    - find /var/lib/pacman/sync/ -type f -delete
-    - find /var/lib/pacman/local/ -maxdepth 1 -mindepth 1 -exec rm -r {} \;
     - pacman -Scc --noconfirm
 ...
