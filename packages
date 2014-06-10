@@ -14,6 +14,7 @@ lockfile-progs
 logrotate
 lsof
 lvm2
+man-db
 mtr
 net-tools
 netctl
