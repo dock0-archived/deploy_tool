@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'keychain'
 require 'linodeapi'
 require 'json'
 require 'securerandom'
@@ -26,10 +25,7 @@ def wait_for_jobs(linode)
   puts
 end
 
-api_key = Keychain.open('/Volumes/akerl-vault/dock0.keychain')
-api_key = api_key.generic_passwords.where(service: 'linode-api')
-api_key = api_key.first.password
-
+api_key = `./meta/getkey.rb`
 API = LinodeAPI::Raw.new(apikey: api_key)
 
 puts 'Updating stackscript'
