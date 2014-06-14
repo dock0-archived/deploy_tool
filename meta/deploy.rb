@@ -3,6 +3,7 @@
 require 'keychain'
 require 'linodeapi'
 require 'json'
+require 'securerandom'
 
 STACKSCRIPT_ID = 8125
 DISTRIBUTION_ID = 128
@@ -83,7 +84,9 @@ end
 
 devices = Hash[devices]
 
-root_pw = (('a'..'z').to_a.shuffle[0, 20] + (1..9).to_a.shuffle[0, 5]).join
+root_pw = SecureRandom.hex(24)
+spiped_key = SecureRandom.base64(128)
+
 devices['maker'] = API.linode.disk.createfromstackscript(
   linodeid: linode,
   stackscriptid: STACKSCRIPT_ID,
@@ -91,7 +94,11 @@ devices['maker'] = API.linode.disk.createfromstackscript(
   rootpass: root_pw,
   label: 'maker',
   size: 1024,
-  stackscriptudfresponses: { name: HOSTNAME, debug: DEBUG_MODE }.to_json
+  stackscriptudfresponses: {
+    name: HOSTNAME,
+    debug: DEBUG_MODE,
+    spiped_key: spiped_key
+  }.to_json
 )[:diskid]
 
 config = API.linode.config.create(
