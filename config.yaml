@@ -59,10 +59,13 @@ commands:
     - usermod -s /usr/bin/zsh root
     - ln -s ../usr/share/zoneinfo/US/Eastern /etc/localtime
     - locale-gen
+    - git clone git://github.com/ingydotnet/....git /root/...
     - ln -s /root/.dotdotdot.conf /root/.../conf
     - /root/.../... update
     - /root/.../... install
+    - git clone git://github.com/akerl/scripts.git /opt/scripts
     - /opt/scripts/script_sync /opt/scripts
+    - git clone git://github.com/akerl/keys.git /opt/keys
     - /opt/scripts/key_sync /opt/keys/strong /root/.ssh/authorized_keys quiet
     - find /usr/share/locale/ -maxdepth 1 -mindepth 1 -type d ! -name 'en_US' -exec rm -r {} \;
     - pacman -Scc --noconfirm
