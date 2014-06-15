@@ -1,0 +1,20 @@
+table filter {
+    chain input {
+        type filter hook input priority 0;
+    }
+}
+
+table nat {
+    chain prerouting {
+        type nat hook prerouting priority -150;
+    }
+    chain postrouting {
+        type nat hook postrouting priority -150;
+    }
+    chain output {
+        type nat hook output priority -150;
+    }
+    chain dock0 {
+    }
+}
+
