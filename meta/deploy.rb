@@ -65,7 +65,7 @@ wait_for_jobs linode
 devices = [
   ['swap', 256, :swap],
   ['root', 6144, :ext3],
-  ['lvm', 40_960, :raw]
+  ['lvm', 17_152, :raw]
 ]
 
 devices.map! do |name, size, type|
