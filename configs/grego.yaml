@@ -4,7 +4,7 @@ networking:
   ipv4_addrs:
     - 50.116.33.15/24
     - 192.168.135.4/17
-  ipv4_gateway: 50.116.33.1 
+  ipv4_gateway: 50.116.33.1
   ipv6_addrs:
     - 2600:3c02::f03c:91ff:fedf:7bad/64
     - 2600:3c02:e000:0008::1/64

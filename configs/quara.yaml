@@ -1,0 +1,12 @@
+---
+hostname: quara
+networking:
+  ipv4_addrs:
+    - 192.155.86.203/24
+    - 192.168.135.119/17
+  ipv4_gateway: 192.155.86.1
+  ipv6_addrs:
+    - 2600:3c01::f03c:91ff:fe73:00fd/64
+    - 2600:3c01:e000:001e::1/64
+  ipv6_gateway: fe80::1
+...
