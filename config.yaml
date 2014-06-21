@@ -14,10 +14,10 @@ lvm:
   lvs:
     cowland:
       size: 3G
-      fs: ext4
+      fs: btrfs
     docker:
       size: 10G
-      fs: ext4
+      fs: btrfs
 domain: a-rwx.org
 admin_email: admin@lesaker.org
 kernel:
