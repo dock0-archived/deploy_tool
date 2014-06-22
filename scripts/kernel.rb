@@ -13,7 +13,8 @@ location = run "roller.py \
   -c #{version} \
   -r #{revision} \
   -b #{@config['kernel']['tmpdir']} \
-  -d #{@config['kernel']['configs']}
+  -d #{@config['kernel']['configs']} \
+  -p #{@config['kernel']['configs']}/patches/#{version}_#{revision}
 "
 
 FileUtils.mkdir_p "#{@config['paths']['mount']}/boot/grub"
