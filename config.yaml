@@ -62,7 +62,7 @@ commands:
     - /root/.../... install
     - git clone git://github.com/akerl/scripts.git /opt/scripts
     - /opt/scripts/script_sync /opt/scripts
-    - git clone git://github.com/akerl/nsinit.git /opt/nsinit
+    - git clone git://github.com/dock0/nsinit.git /opt/nsinit
     - /opt/scripts/script_sync /opt/nsinit/build
     - git clone git://github.com/akerl/keys.git /opt/keys
     - /opt/scripts/key_sync /opt/keys/strong /root/.ssh/authorized_keys quiet
