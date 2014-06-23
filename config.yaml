@@ -21,7 +21,7 @@ lvm:
 domain: a-rwx.org
 admin_email: admin@lesaker.org
 kernel:
-  configs: ./kernels
+  configs: /opt/kernels
   tmpdir: /mnt/dock0/tmp_kernel
   version: 3.16-rc2
   revision: 1
