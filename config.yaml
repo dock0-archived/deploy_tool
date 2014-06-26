@@ -66,6 +66,4 @@ commands:
     - /opt/scripts/script_sync /opt/nsinit/build
     - git clone git://github.com/akerl/keys.git /opt/keys
     - /opt/scripts/key_sync /opt/keys/strong /root/.ssh/authorized_keys quiet
-    - find /usr/share/locale/ -maxdepth 1 -mindepth 1 -type d ! -name 'en_US' -exec rm -r {} \;
-    - pacman -Scc --noconfirm
 ...

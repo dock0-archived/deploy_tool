@@ -12,3 +12,9 @@ end
   puts "Removing path: #{path}"
   FileUtils.rm_rf "#{@config['paths']['build']}/#{path}"
 end
+
+system 'pacman -Scc --noconfirm'
+system 'find /usr/share/locale/ ' \
+  '-maxdepth 1 -mindepth 1 -type d ! -name "en_US"' \
+  '-exec rm -r {} \;'
+
