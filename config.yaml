@@ -50,16 +50,4 @@ templates:
   - etc/hostname
   - etc/hosts
   - etc/netctl/main
-commands:
-  chroot:
-    - git clone git://github.com/ingydotnet/....git /root/...
-    - ln -s /root/.dotdotdot.conf /root/.../conf
-    - /root/.../... update
-    - /root/.../... install
-    - git clone git://github.com/akerl/scripts.git /opt/scripts
-    - /opt/scripts/script_sync /opt/scripts
-    - git clone git://github.com/dock0/nsinit.git /opt/nsinit
-    - /opt/scripts/script_sync /opt/nsinit/build
-    - git clone git://github.com/akerl/keys.git /opt/keys
-    - /opt/scripts/key_sync /opt/keys/strong /root/.ssh/authorized_keys quiet
 ...
