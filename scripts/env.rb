@@ -16,10 +16,10 @@ FileUtils.ln_s(
 )
 
 # Generate locales
-run 'arch-chroot locale-gen'
+run_chroot 'locale-gen'
 
 # Set root user to use zsh
-run 'arch-chroot usermod -s /usr/local/bin/zsh'
+run_chroot 'usermod -s /usr/local/bin/zsh'
 
 run 'git clone git://github.com/ingydotnet/....git ' \
   "#{@config['paths']['build']}/root/..."
@@ -27,4 +27,4 @@ FileUtils.ln_s(
   '../.dotdotdot.conf',
   "#{@config['paths']['build']}/root/.../conf"
 )
-%w(update install).each { |x| run "arch-chroot /root/.../... #{x}" }
+%w(update install).each { |x| run_chroot "/root/.../... #{x}" }

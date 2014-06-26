@@ -25,5 +25,5 @@ base = @config['paths']['build']
 
 repos.each do |repo|
   run "git clone #{repo.source} #{base}#{repo.dest}"
-  run "arch-chroot #{repo.command}"
+  run_chroot repo.command
 end
