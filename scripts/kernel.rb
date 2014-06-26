@@ -16,6 +16,7 @@ location = run "roller.py \
   -d #{@config['kernel']['configs']} \
   -p #{@config['kernel']['configs']}/patches/#{version}_#{revision}
 "
+location = location.split("\n").last
 
 FileUtils.mkdir_p "#{@config['paths']['mount']}/boot/grub"
 FileUtils.cp location.chomp, "#{@config['paths']['mount']}/boot/vmlinuz"
