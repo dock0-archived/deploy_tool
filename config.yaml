@@ -52,10 +52,6 @@ templates:
   - etc/netctl/main
 commands:
   chroot:
-    - sed -i 's/^root::/root:x:/' /etc/shadow
-    - usermod -s /usr/bin/zsh root
-    - ln -s ../usr/share/zoneinfo/US/Eastern /etc/localtime
-    - locale-gen
     - git clone git://github.com/ingydotnet/....git /root/...
     - ln -s /root/.dotdotdot.conf /root/.../conf
     - /root/.../... update
