@@ -19,7 +19,7 @@ FileUtils.ln_s(
 run_chroot 'locale-gen'
 
 # Set root user to use zsh
-run_chroot 'usermod -s /usr/local/bin/zsh'
+run_chroot 'usermod -s /usr/bin/zsh root'
 
 run 'git clone git://github.com/ingydotnet/....git ' \
   "#{@config['paths']['build']}/root/..."
