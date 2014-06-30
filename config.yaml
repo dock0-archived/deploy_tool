@@ -8,6 +8,7 @@ paths:
   overlay: ./overlay
   scripts: ./scripts
 root_size: 4096
+root_type: btrfs
 lvm:
   device: /dev/xvdd
   name: dock0
