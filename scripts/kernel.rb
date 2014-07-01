@@ -2,24 +2,16 @@
 # Roll the new kernel
 
 require 'fileutils'
+require 'open-uri'
 
 version = @config['kernel']['version']
-revision = @config['kernel']['revision']
+url = "https://github.com/akerl/kernels/releases/download/#{version}/vmlinuz"
 
-puts "Rolling the kernel: #{version}_#{revision}"
-location = run "roller.py \
-  -s \
-  -k #{version} \
-  -c #{version} \
-  -r #{revision} \
-  -b #{@config['kernel']['tmpdir']} \
-  -d #{@config['kernel']['configs']} \
-  -p #{@config['kernel']['configs']}/patches/#{version}_#{revision}
-"
-location = location.split("\n").last
-
+puts "Downloading the kernel: #{version}"
 FileUtils.mkdir_p "#{@config['paths']['mount']}/boot/grub"
-FileUtils.cp location.chomp, "#{@config['paths']['mount']}/boot/vmlinuz"
+File.open("#{@config['paths']['mount']}/boot/vmlinuz", 'wb') do |fh|
+  open(url, 'rb') { |request| fh.write request.read }
+end
 
 puts 'Generating the initrd'
 initcpio_path = @config['kernel']['initcpio_helpers'] + '/.'

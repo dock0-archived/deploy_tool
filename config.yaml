@@ -21,10 +21,7 @@ lvm:
 domain: a-rwx.org
 admin_email: admin@lesaker.org
 kernel:
-  configs: /opt/host_config/kernels
-  tmpdir: /mnt/dock0/tmp_kernel
-  version: 3.16-rc3
-  revision: 1
+  version: 3.16-rc3_1
   initcpio_helpers: ./initcpio
   modules: 'base,udev,lvm2,dock0'
   options:
