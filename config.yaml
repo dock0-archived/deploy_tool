@@ -7,9 +7,6 @@ paths:
   package_list: ./packages
   overlay: ./overlay
   scripts: ./scripts
-fs:
-  type: btrfs
-  flags: -f
 root_size: 4096
 lvm:
   device: /dev/xvdd
