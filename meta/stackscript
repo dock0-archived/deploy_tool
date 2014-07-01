@@ -21,7 +21,6 @@ fi
 pacman -Syu --noconfirm
 pacman -Syu --noconfirm git ruby arch-install-scripts python python-pip base-devel bc squashfs-tools mkinitcpio btrfs-progs
 
-pip install roller
 gem install --no-user-install dock0
 
 git clone --recursive git://github.com/dock0/host_config /opt/host_config
