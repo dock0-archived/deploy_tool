@@ -42,4 +42,3 @@ File.open("#{@config['paths']['mount']}/boot/grub/menu.lst", 'w') do |fh|
   fh.write grub_config
 end
 
-FileUtils.remove_dir @config['kernel']['tmpdir']
