@@ -47,4 +47,8 @@ templates:
   - etc/hostname
   - etc/hosts
   - etc/netctl/main
+commands:
+  chroot:
+    - curl -sLo /usr/local/bin/nsinit https://github.com/dock0/nsinit/releases/download/master/nsinit
+    - chmod a+x /usr/local/bin/nsinit
 ...

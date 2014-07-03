@@ -10,11 +10,6 @@ repos = [
     '/opt/scripts/script_sync /opt/scripts'
   ),
   Repo.new(
-    'git://github.com/dock0/nsinit.git',
-    '/opt/nsinit',
-    '/opt/scripts/script_sync /opt/nsinit/build'
-  ),
-  Repo.new(
     'git://github.com/akerl/keys.git',
     '/opt/keys',
     '/opt/scripts/key_sync /opt/keys/strong /root/.ssh/authorized_keys quiet'
