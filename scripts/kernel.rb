@@ -16,12 +16,12 @@ end
 puts 'Generating the initrd'
 initcpio_path = @config['kernel']['initcpio_helpers'] + '/.'
 FileUtils.cp_r initcpio_path, '/usr/lib/initcpio'
-FileUtils.mkdir_p "/lib/modules/#{version}_#{revision}"
+FileUtils.mkdir_p "/lib/modules/#{version}"
 run "mkinitcpio \
   -c /dev/null \
   -A #{@config['kernel']['modules']} \
   -g #{@config['paths']['mount']}/boot/initrd.img \
-  -k #{version}_#{revision}
+  -k #{version}
 "
 
 puts 'Creating the grub config'
