@@ -82,6 +82,7 @@ run_hook() {
 
 # args: /path/to/newroot
 dock0_mount_handler() {
+    return
     local newroot="${1}"
 
     _mnt_dev "${root}" "/run/dock0/bootmnt" "-w"
