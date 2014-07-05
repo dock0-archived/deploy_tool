@@ -9,7 +9,7 @@ paths:
   scripts: ./scripts
 root_size: 4096
 fs:
-  type: ext4
+  type: btrfs
   flags: -f
 lvm:
   device: /dev/xvdd
@@ -20,7 +20,7 @@ lvm:
       fs: ext4
     docker:
       size: 10G
-      fs: ext4
+      fs: btrfs
 domain: a-rwx.org
 admin_email: admin@lesaker.org
 kernel:
@@ -29,7 +29,7 @@ kernel:
   modules: 'base,udev,lvm2,dock0'
   options:
     root: /dev/xvda
-    rw_dev: /dev/dock0/cowland
+    cow_dev: /dev/dock0/cowland
 cleanup:
   users:
     - ftp

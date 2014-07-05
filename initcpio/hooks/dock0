@@ -3,10 +3,20 @@ _mnt_fs() {
     local img="${1}"
     local newroot="${2}"
     local mnt="${3}"
+    local img_fullname="${img##*/}";
+    local dm_snap_name="${img_fullname%%.*}"
+    local ro_dev ro_dev_size rw_dev
 
-    local ro_dev=$(losetup --find --show --read-only "${img}")
-    mkfs.ext4 -F ${rw_dev}
-    mount -t aufs -o br=${rw_dev}:${ro_dev} none ${new_root}${mnt}
+    ro_dev=$(losetup --find --show --read-only "${img}")
+    dev_size=$(blockdev --getsz ${ro_dev})
+
+    msg ":: Creating 'root.cow' as non-persistent."
+    rm -f "/run/dock0/cowspace/root.cow"
+    dd of="/run/dock0/cowspace/root.cow" count=0 seek=${dev_size} &> /dev/null
+    rw_dev=$(losetup --find --show "/run/dock0/cowspace/root.cow")
+
+    echo "0 ${dev_size} snapshot ${ro_dev} ${rw_dev} N 8" | dmsetup create cow_root
+    _mnt_dev "/dev/mapper/cow_root" "${newroot}${mnt}" "-w"
 }
 
 # args: /path/to/image_file, mountpoint
@@ -44,6 +54,7 @@ run_hook() {
 dock0_mount_handler() {
     local newroot="${1}"
     _mnt_dev "${root}" "/run/dock0/bootmnt" "-w"
+    _mnt_dev "${cow_dev}" "/run/dock0/cowspace" "-w"
     _mnt_sfs "/run/dock0/bootmnt/root.fs.sfs" "/run/dock0/sfs/"
     _mnt_fs "/run/dock0/sfs/root.fs" "${newroot}" "/"
 }
