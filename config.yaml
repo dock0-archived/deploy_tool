@@ -29,7 +29,7 @@ kernel:
   modules: 'base,udev,lvm2,dock0'
   options:
     root: /dev/xvda
-    rw_dev: /dev/dock0/cowland
+    cow_dev: /dev/dock0/cowland
 cleanup:
   users:
     - ftp
