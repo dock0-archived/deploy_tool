@@ -7,7 +7,7 @@ build() {
     add_binary dmsetup
     add_binary losetup
     add_binary mountpoint
-    add_binary mkfs.btrfs
+    add_binary mkfs.ext4
 }
 
 # vim: set ft=sh ts=4 sw=4 et:
