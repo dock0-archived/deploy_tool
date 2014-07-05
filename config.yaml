@@ -9,8 +9,8 @@ paths:
   scripts: ./scripts
 root_size: 4096
 fs:
-  type: btrfs
-  flags: -f
+  type: ext4
+  flags: -F
 lvm:
   device: /dev/xvdd
   name: dock0
