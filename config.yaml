@@ -29,9 +29,7 @@ kernel:
   modules: 'base,udev,lvm2,dock0'
   options:
     root: /dev/xvda
-    archisobasedir: /
-    cow_device: /dev/dock0/cowland
-    cowfile_size: 100
+    rw_dev: /dev/dock0/cowland
 cleanup:
   users:
     - ftp
