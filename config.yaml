@@ -9,15 +9,15 @@ paths:
   scripts: ./scripts
 root_size: 4096
 fs:
-  type: btrfs
-  flags: -f
+  type: ext4
+  flags: -F
 lvm:
   device: /dev/xvdd
   name: dock0
   lvs:
     cowland:
       size: 3G
-      fs: btrfs
+      fs: ext4
     docker:
       size: 10G
       fs: btrfs
