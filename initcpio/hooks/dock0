@@ -66,7 +66,7 @@ run_hook() {
 # args: /path/to/newroot
 dock0_mount_handler() {
     local newroot="${1}"
-
+    return
     _mnt_dev "${root}" "/run/dock0/bootmnt" "-w"
     _mnt_dev "${cow_device}" "/run/dock0/cowspace" "-w"
     _mnt_sfs "/run/dock0/bootmnt/root.fs.sfs" "/run/dock0/sfs/"
