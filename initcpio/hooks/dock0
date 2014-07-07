@@ -38,5 +38,5 @@ dock0_mount_handler() {
     _mnt_dev "${cow_dev}" "/run/dock0/cowspace" "-w"
     _mnt_loop "/run/dock0/bootmnt/root.fs.sfs" "/run/dock0/sfs/"
     _mnt_loop "/run/dock0/sfs/root.fs" "/run/dock0/rootfs/"
-    _mnt_dev "none" "${new_root}" "-t aufs -o br=/run/dock0/cowspace/:/run/dock0/rootfs/"
+    _mnt_dev "none" "${new_root}/" "-t aufs -o br=/run/dock0/cowspace/:/run/dock0/rootfs/"
 }
