@@ -1,4 +1,11 @@
-# args: /path/to/image_file, mountpoint
+_mnt_aufs() {
+    local rw_fs="$1"
+    local ro_fs="$2"
+    local mountpoint="$3"
+
+    mount -t aufs -o br=${rw_fs}:${ro_fs} ${mountpoint}
+}
+
 _mnt_loop() {
     local img="${1}"
     local mnt="${2}"
@@ -8,7 +15,6 @@ _mnt_loop() {
     _mnt_dev "${loop_dev}" "${mnt}" "-r"
 }
 
-# args: device, mountpoint, flags
 _mnt_dev() {
     local dev="${1}"
     local mnt="${2}"
@@ -29,7 +35,6 @@ run_hook() {
     mount_handler="dock0_mount_handler"
 }
 
-# args: /path/to/newroot
 dock0_mount_handler() {
     local newroot="${1}"
 
@@ -38,5 +43,6 @@ dock0_mount_handler() {
     _mnt_dev "${cow_dev}" "/run/dock0/cowspace" "-w"
     _mnt_loop "/run/dock0/bootmnt/root.fs.sfs" "/run/dock0/sfs/"
     _mnt_loop "/run/dock0/sfs/root.fs" "/run/dock0/rootfs/"
-    _mnt_dev "none" "${new_root}/" "-t aufs -o br=/run/dock0/cowspace/:/run/dock0/rootfs/"
+    _mnt_aufs "/run/dock0/cowspace/" "/run/dock0/rootfs/" "${new_root}/"
 }
+
