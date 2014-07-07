@@ -3,10 +3,8 @@
 build() {
     add_runscript
 
-    add_binary blockdev
-    add_binary dmsetup
     add_binary losetup
-    add_binary mountpoint
+    add_binary mkfs.ext4
     add_binary mount.aufs
 }
 
