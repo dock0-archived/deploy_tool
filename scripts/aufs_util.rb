@@ -13,5 +13,5 @@ end
 
 ['/', "#{@config['paths']['mount']}/"].each do |root|
   puts "Installing aufs-util to #{root}"
-  system "tar -xvf /tmp/aufs-util.tar.xz -C #{root} --keep-directory-symlink"
+  system "tar -xf /tmp/aufs-util.tar.xz -C #{root} --keep-directory-symlink"
 end
