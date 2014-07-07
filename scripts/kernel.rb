@@ -41,4 +41,3 @@ initrd /boot/initrd.img
 File.open("#{@config['paths']['mount']}/boot/grub/menu.lst", 'w') do |fh|
   fh.write grub_config
 end
-

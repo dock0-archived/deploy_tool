@@ -52,7 +52,4 @@ commands:
   chroot:
     - curl -sLo /usr/local/bin/nsinit https://github.com/dock0/nsinit/releases/download/latest/nsinit
     - chmod a+x /usr/local/bin/nsinit
-    - curl -sLo /tmp/aufs-util.tar.xz https://github.com/dock0/aufs-util/releases/download/latest/aufs-util.tar.xz
-    - tar -xf /tmp/aufs-util.tar.xz -C / --keep-directory-symlink
-    - rm -f /tmp/aufs-util.tar.xz
 ...
