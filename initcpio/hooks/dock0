@@ -3,7 +3,7 @@ _mnt_aufs() {
     local ro_fs="$2"
     local mountpoint="$3"
 
-    mount -t aufs -o br=${rw_fs}:${ro_fs} ${mountpoint}
+    mount -t aufs -o br=${rw_fs}:${ro_fs} none ${mountpoint}
 }
 
 _mnt_loop() {
