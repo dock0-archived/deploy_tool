@@ -56,7 +56,6 @@ run_hook() {
 
 dock0_mount_handler() {
     local newroot="${1}"
-    launch_interactive_shell
 
     _mnt_dev "${root}" "/run/dock0/bootmnt" "-w"
     mkfs.ext4 -F "${cow_dev}"

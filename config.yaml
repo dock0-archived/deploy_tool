@@ -20,7 +20,7 @@ lvm:
       fs: ext4
     docker:
       size: 10G
-      fs: btrfs
+      fs: ext4
 domain: a-rwx.org
 admin_email: admin@lesaker.org
 kernel:
