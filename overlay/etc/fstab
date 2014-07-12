@@ -2,4 +2,3 @@
 # /etc/fstab: static file system information
 #
 # <file system>     <dir>                   <type>  <options>               <dump>  <pass>
-/dev/dock0/docker   /var/lib/docker/aufs    ext4   noatime    0       1

@@ -16,7 +16,7 @@ lvm:
   name: dock0
   lvs:
     cowland:
-      size: 5G
+      size: 6G
       fs: ext4
     metadata:
       size: 3G
