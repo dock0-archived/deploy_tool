@@ -10,7 +10,7 @@ paths:
 root_size: 4096
 fs:
   type: btrfs
-  flags: -F
+  flags: -f
 lvm:
   device: /dev/xvdd
   name: dock0
