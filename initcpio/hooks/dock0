@@ -22,7 +22,7 @@ _mnt_aufs() {
     local ro_fs="$2"
     local mountpoint="$3"
 
-    mount -t aufs -o br=${rw_fs}:${ro_fs} none /new_root
+    mount -t aufs -o br=${rw_fs}:${ro_fs} -o "xino=/run/.aufs.xino" none /new_root
     switch_root /new_root /sbin/init
 }
 
@@ -57,7 +57,6 @@ run_hook() {
 
 dock0_mount_handler() {
     local newroot="${1}"
-    echo "AKERLAKERL:: $newroot"
 
     _mnt_dev "${root}" "/run/dock0/bootmnt" "-w"
     mkfs.btrfs -f "${cow_dev}"
