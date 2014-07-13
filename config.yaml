@@ -31,7 +31,6 @@ kernel:
   options:
     root: /dev/xvda
     cow_dev: /dev/dock0/cowland
-    fancy: doit
 cleanup:
   users:
     - ftp
