@@ -11,7 +11,7 @@ File.open('/tmp/aufs-util.tar.xz', 'w') do |fh|
   open(url + 'aufs-util.tar.xz', 'rb') { |request| fh.write request.read }
 end
 
-['/', "#{@config['paths']['mount']}/"].each do |root|
+['/', "#{@config['paths']['build']}/"].each do |root|
   puts "Installing aufs-util to #{root}"
   system "tar -xf /tmp/aufs-util.tar.xz -C #{root} --keep-directory-symlink"
 end
