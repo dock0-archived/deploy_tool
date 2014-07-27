@@ -1,7 +1,7 @@
 ##
 # Flip bits as appropriate if we're in debug mode
 
-return unless File.exist? '/tmp/debug_mode'
+next unless File.exist? '/tmp/debug_mode'
 
 puts 'Debug mode activated'
 
