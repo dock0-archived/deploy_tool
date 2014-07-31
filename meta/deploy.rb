@@ -4,7 +4,7 @@ require 'linodeapi'
 require 'json'
 require 'securerandom'
 
-STACKSCRIPT_ID = 8125
+STACKSCRIPT_ID = 9930
 DISTRIBUTION_ID = 128
 KERNEL_ID = 138
 PV_GRUB_ID = 95
