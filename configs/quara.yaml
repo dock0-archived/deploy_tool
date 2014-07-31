@@ -1,0 +1,12 @@
+---
+hostname: grego
+networking:
+  ipv4_addrs:
+    - 192.81.129.127/24
+    - 192.168.167.222/17
+  ipv4_gateway: 192.81.129.1
+  ipv6_addrs:
+    - 2600:3c01::f03c:91ff:fe50:b041/64
+    - 2600:3c01:e001:9001::1/56
+  ipv6_gateway: fe80::1
+...
