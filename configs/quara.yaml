@@ -1,5 +1,5 @@
 ---
-hostname: grego
+hostname: quara
 networking:
   ipv4_addrs:
     - 192.81.129.127/24
