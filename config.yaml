@@ -25,7 +25,7 @@ lvm:
 domain: a-rwx.org
 admin_email: admin@lesaker.org
 kernel:
-  version: 3.17-rc1_1
+  version: 3.17-rc2_1
   initcpio_helpers: ./initcpio
   modules: 'base,udev,lvm2,dock0'
   options:
