@@ -5,7 +5,7 @@ require 'json'
 require 'securerandom'
 
 STACKSCRIPT_ID = 9930
-DISTRIBUTION_ID = 128
+DISTRIBUTION_ID = 132
 KERNEL_ID = 138
 PV_GRUB_ID = 95
 
