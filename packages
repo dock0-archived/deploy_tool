@@ -3,6 +3,7 @@ cpio
 docker
 e2fsprogs
 git
+gzip
 haveged
 lvm2
 netctl
