@@ -8,7 +8,6 @@ lvm2
 netctl
 nftables
 ntp
-openssh
 pacman
 procps-ng
 radvd
