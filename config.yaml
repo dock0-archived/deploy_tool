@@ -23,7 +23,6 @@ lvm:
     docker:
       size: 30G
 domain: a-rwx.org
-admin_email: admin@lesaker.org
 kernel:
   version: 3.17_1
   initcpio_helpers: ./initcpio
@@ -44,13 +43,7 @@ cleanup:
     - etc/skel/.bash_profile
     - etc/pacman.d/gnupg/pubring.gpg~
 templates:
-  - etc/mail/exim.conf
-  - etc/mail/aliases
   - etc/hostname
   - etc/hosts
   - etc/netctl/main
-commands:
-  chroot:
-    - curl -sLo /usr/local/bin/nsinit https://github.com/dock0/nsinit/releases/download/master/nsinit
-    - chmod a+x /usr/local/bin/nsinit
 ...
