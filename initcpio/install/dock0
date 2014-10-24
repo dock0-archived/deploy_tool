@@ -6,7 +6,6 @@ build() {
     add_binary blockdev
     add_binary losetup
     add_binary mkfs.btrfs
-    add_binary mount.aufs
     add_binary pivot_root
 }
 

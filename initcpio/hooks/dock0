@@ -17,15 +17,6 @@ _mnt_fs() {
     _mnt_dev "/dev/mapper/cow_root" "${newroot}${mnt}" "-w"
 }
 
-_mnt_aufs() {
-    local rw_fs="$1"
-    local ro_fs="$2"
-    local mountpoint="$3"
-
-    mount -t aufs -o br=${rw_fs}:${ro_fs} -o "xino=/run/.aufs.xino" none /new_root
-    switch_root /new_root /sbin/init
-}
-
 _mnt_loop() {
     local img="${1}"
     local mnt="${2}"
@@ -62,12 +53,6 @@ dock0_mount_handler() {
     mkfs.btrfs -f "${cow_dev}"
     _mnt_dev "${cow_dev}" "/run/dock0/cowspace" "-w"
     _mnt_loop "/run/dock0/bootmnt/root.fs.sfs" "/run/dock0/sfs/"
-
-    if [ -n "$fancy" ] ; then
-        _mnt_loop "/run/dock0/sfs/root.fs" "/run/dock0/rootfs/"
-        _mnt_aufs "/run/dock0/cowspace/" "/run/dock0/rootfs/" "${new_root}/"
-    else
-        _mnt_fs "/run/dock0/sfs/root.fs" "${newroot}" "/"
-    fi
+    _mnt_fs "/run/dock0/sfs/root.fs" "${newroot}" "/"
 }
 
