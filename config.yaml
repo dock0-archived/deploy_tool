@@ -24,7 +24,7 @@ lvm:
       size: 30G
 domain: a-rwx.org
 kernel:
-  version: 3.17_1
+  version: 3.17.1_1
   initcpio_helpers: ./initcpio
   modules: 'base,udev,lvm2,dock0'
   options:
