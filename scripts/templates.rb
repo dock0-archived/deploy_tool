@@ -4,8 +4,8 @@
 require 'erb'
 require 'fileutils'
 
-Dir.chdir(@config['paths']['templates']) do
-  templates = Dir.glob('**/*').select { |x| File.file? x }
+templates = Dir.chdir(@config['paths']['templates']) do
+  Dir.glob('**/*').select { |x| File.file? x }
 end
 
 templates.each do |path|
