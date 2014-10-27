@@ -6,6 +6,7 @@ paths:
   build: ./build
   package_list: ./packages
   overlay: ./overlay
+  templates: ./templates
   scripts: ./scripts
 root_size: 4096
 fs:
@@ -42,8 +43,4 @@ cleanup:
     - etc/skel/.bash_logout
     - etc/skel/.bash_profile
     - etc/pacman.d/gnupg/pubring.gpg~
-templates:
-  - etc/hostname
-  - etc/hosts
-  - etc/netctl/main
 ...
