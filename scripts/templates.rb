@@ -2,11 +2,17 @@
 # Process template files using provided config
 
 require 'erb'
+require 'fileutils'
 
-@config['templates'].each do |path|
+templates = Dir.glob("#{@config['paths']['templates']}**/*").select do |x|
+  File.file? x 
+end
+
+templates.each do |path|
   puts "Handling template: #{path}"
-  full_path = "#{@config['paths']['build']}/#{path}"
-  template = File.read full_path
-  parsed = ERB.new(template, nil, '<>').result(binding)
-  File.open(full_path, 'w') { |fh| fh.write parsed }
+  template = File.read path
+  target_path = "#{@config['paths']['mount']}/config/templates/#{path}"
+  FileUtils.mkdir_p File.dirname(target_path)
+  parsed = ERB.new(File.read path, nil, '<>').result(binding)
+  File.open(target_path, 'w') { |fh| fh.write parsed }
 end
