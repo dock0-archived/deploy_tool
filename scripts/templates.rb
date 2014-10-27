@@ -17,5 +17,5 @@ templates.each do |path|
   FileUtils.mkdir_p File.dirname(target_path)
   File.open(target_path, 'w') { |fh| fh.write parsed }
 
-  File.symlink "/run/dock0/bootmnt/configs/templates/#{path}", "/#{path}"
+  FileUtils.ln_sf "/run/dock0/bootmnt/configs/templates/#{path}", "/#{path}"
 end
