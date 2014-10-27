@@ -4,15 +4,18 @@
 require 'erb'
 require 'fileutils'
 
-templates = Dir.glob("#{@config['paths']['templates']}**/*").select do |x|
-  File.file? x 
+Dir.chdir(@config['paths']['templates']) do
+  templates = Dir.glob('**/*').select { |x| File.file? x }
 end
 
 templates.each do |path|
   puts "Handling template: #{path}"
-  template = File.read path
+  template = File.read "#{@config['paths']['templates']}/#{path}"
+  parsed = ERB.new(template, nil, '<>').result(binding)
+
   target_path = "#{@config['paths']['mount']}/config/templates/#{path}"
   FileUtils.mkdir_p File.dirname(target_path)
-  parsed = ERB.new(File.read path, nil, '<>').result(binding)
   File.open(target_path, 'w') { |fh| fh.write parsed }
+
+  File.symlink "/run/dock0/bootmnt/configs/templates/#{path}", "/#{path}"
 end
