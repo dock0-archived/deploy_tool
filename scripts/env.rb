@@ -11,7 +11,7 @@ File.open(shadow_path, 'w') { |fh| shadow_file.each { |line| fh << line } }
 
 # Set timezone
 FileUtils.ln_s(
-  '../usr/share/zoneinfo/US/Eastern',
+  '../usr/share/zoneinfo/UTC',
   "#{@config['paths']['build']}/etc/localtime"
 )
 
