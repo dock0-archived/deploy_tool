@@ -18,7 +18,7 @@ templates.each do |path|
   File.open(target_path, 'w') { |fh| fh.write parsed }
 
   FileUtils.ln_sf(
-    "/run/dock0/bootmnt/configs/templates/#{path}",
+    "/run/dock0/bootmnt/config/templates/#{path}",
     "#{@config['paths']['build']}/#{path}"
   )
 end
