@@ -1,0 +1,13 @@
+[Match]
+Name=eth0
+
+[Network]
+<% @config['networking']['ipv4_addrs'].each do |addr| %>
+Address=<%= addr %>
+<% end %>
+<% @config['networking']['ipv6_addrs'].each do |addr| %>
+Address=<%= addr %>
+<% end %>
+Gateway=<%= @config['networking']['ipv4_gateway'] %>
+Gateway=<%= @config['networking']['ipv6_gateway'] %>
+

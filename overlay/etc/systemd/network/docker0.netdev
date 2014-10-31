@@ -1,0 +1,4 @@
+[NetDev]
+Name=docker0
+Kind=bridge
+

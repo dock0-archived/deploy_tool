@@ -6,7 +6,6 @@ git
 gzip
 haveged
 lvm2
-netctl
 nftables
 ntp
 pacman
