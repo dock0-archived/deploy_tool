@@ -30,6 +30,7 @@ kernel:
   options:
     root: /dev/xvda
     cow_dev: /dev/dock0/cowland
+docker_url: https://github.com/dock0/docker/releases/download/overlayfs/docker
 cleanup:
   users:
     - ftp
