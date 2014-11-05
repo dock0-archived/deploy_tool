@@ -5,7 +5,7 @@ require 'fileutils'
 require 'open-uri'
 
 url = @config['docker_url']
-path = "#{@config['paths']['mount']}/usr/local/sbin/docker"
+path = "#{@config['paths']['build']}/usr/local/sbin/docker"
 
 if url
   puts "Downloading #{url} to #{path}"
