@@ -17,4 +17,3 @@ FileUtils.ln_s(
 
 # Generate locales
 run_chroot 'locale-gen'
-
