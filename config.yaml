@@ -17,12 +17,11 @@ lvm:
   name: dock0
   lvs:
     cowland:
-      size: 6G
+      size: 5G
       fs: btrfs
-    metadata:
-      size: 3G
     docker:
-      size: 30G
+      size: 20G
+      fs: btrfs
 domain: a-rwx.org
 kernel:
   version: 3.18-rc3_1
