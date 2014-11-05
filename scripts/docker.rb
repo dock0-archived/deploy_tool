@@ -4,11 +4,14 @@
 require 'fileutils'
 require 'open-uri'
 
-if @config['docker_url']
-  File.open('/usr/local/sbin/docker', 'wb') do |fh|
-    open(@config['docker_url'], 'rb') { |request| fh.write request.read }
+url = @config['docker_url']
+path = '/usr/local/sbin/docker'
+
+if url
+  File.open(path, 'wb') do |fh|
+    open(url, 'rb') { |request| fh.write request.read }
   end
-  File.chmod '0755', '/usr/local/sbin/docker'
+  File.chmod '0755', path
 else
-  FileUtils.ln_sf '/usr/bin/docker', '/usr/local/sbin/docker'
+  FileUtils.ln_sf '/usr/bin/docker', path
 end
