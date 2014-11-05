@@ -11,7 +11,7 @@ if url
   File.open(path, 'wb') do |fh|
     open(url, 'rb') { |request| fh.write request.read }
   end
-  File.chmod '0755', path
+  File.chmod 0755, path
 else
   FileUtils.ln_sf '/usr/bin/docker', path
 end
