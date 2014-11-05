@@ -5,9 +5,10 @@ require 'fileutils'
 require 'open-uri'
 
 url = @config['docker_url']
-path = '/usr/local/sbin/docker'
+path = "#{@config['paths']['mount']}/usr/local/sbin/docker"
 
 if url
+  puts "Downloading #{url} to #{path}"
   File.open(path, 'wb') do |fh|
     open(url, 'rb') { |request| fh.write request.read }
   end
