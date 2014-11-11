@@ -1,5 +1,4 @@
 btrfs-progs
-cpio
 docker
 e2fsprogs
 git
@@ -10,8 +9,6 @@ nftables
 ntp
 pacman
 procps-ng
-radvd
-squashfs-tools
 syslog-ng
 systemd
 systemd-sysvcompat
