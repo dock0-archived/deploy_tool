@@ -24,7 +24,7 @@ lvm:
       fs: btrfs
 domain: a-rwx.org
 kernel:
-  version: 3.18-rc3_1
+  version: 3.18-rc4_1
   initcpio_helpers: ./initcpio
   modules: 'base,udev,lvm2,dock0'
   options:
