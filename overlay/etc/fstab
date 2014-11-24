@@ -1,6 +1,0 @@
-#
-# /etc/fstab: static file system information
-#
-# <file system> <dir>   <type>  <options>       <dump>  <pass>
-/dev/dock0/docker /var/lib/docker btrfs compress=lzo 0 1
-

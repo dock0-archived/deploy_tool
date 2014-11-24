@@ -1,6 +1,0 @@
-.include /usr/lib/systemd/system/netctl@.service
-
-[Unit]
-Description=main networking config
-BindsTo=sys-subsystem-net-devices-eth0.device
-After=sys-subsystem-net-devices-eth0.device

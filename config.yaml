@@ -1,46 +1,7 @@
 ---
 paths:
-  device: /dev/xvdc
-  mount: /mnt/dock0
-  build_file: /mnt/dock0/root.fs
   build: ./build
-  package_list: ./packages
-  overlay: ./overlay
   templates: ./templates
   scripts: ./scripts
-root_size: 4096
-fs:
-  type: btrfs
-  flags: -f
-lvm:
-  device: /dev/xvdd
-  name: dock0
-  lvs:
-    cowland:
-      size: 5G
-      fs: btrfs
-    docker:
-      size: 20G
-      fs: btrfs
 domain: a-rwx.org
-kernel:
-  version: 3.18-rc4_1
-  initcpio_helpers: ./initcpio
-  modules: 'base,udev,lvm2,dock0'
-  options:
-    root: /dev/xvda
-    cow_dev: /dev/dock0/cowland
-docker_url: https://github.com/dock0/docker/releases/download/overlayfs/docker
-cleanup:
-  users:
-    - ftp
-    - http
-  paths:
-    - srv/ftp
-    - srv/http
-    - etc/systemd/system/getty.target.wants/getty@tty1.service
-    - etc/skel/.bashrc
-    - etc/skel/.bash_logout
-    - etc/skel/.bash_profile
-    - etc/pacman.d/gnupg/pubring.gpg~
 ...
