@@ -1,7 +1,3 @@
 ---
-paths:
-  build: ./build
-  templates: ./templates
-  scripts: ./scripts
 domain: a-rwx.org
 ...
