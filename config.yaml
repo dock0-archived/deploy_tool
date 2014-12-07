@@ -1,3 +1,19 @@
 ---
 domain: a-rwx.org
+api_ids:
+  stackscript: 9930
+  distribution: 132
+  stock_kernel: 138
+  pvgrub: 95
+stackscript: ./stackscript
+disks:
+  - label: swap
+    size: 128
+    type: swap
+  - label: root
+    size: 7040
+    type: ext4
+  - label: lvm
+    size: 40960
+    type: raw
 ...

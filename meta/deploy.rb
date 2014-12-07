@@ -7,6 +7,9 @@ require 'json'
 require 'securerandom'
 require 'dock0'
 require 'fileutils'
+require 'yaml'
+
+config = YAML.read
 
 STACKSCRIPT_ID = 9930
 DISTRIBUTION_ID = 132
