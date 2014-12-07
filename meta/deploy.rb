@@ -2,6 +2,7 @@
 
 require 'linodeapi'
 require 'net/ssh'
+require 'net/scp'
 require 'json'
 require 'securerandom'
 require 'dock0'
