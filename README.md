@@ -5,6 +5,12 @@ vm_config
 
 My configuration for [dock0](https://github.com/dock0/dock0)
 
+## Prerequisites
+
+```
+bundle install
+```
+
 ## License
 
 These scripts and config files are released under the MIT License. See the bundled LICENSE file for details.
