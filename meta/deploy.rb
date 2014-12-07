@@ -132,10 +132,10 @@ Net::SCP.upload!(
   'root',
   'build.tar.gz',
   '/tmp/config.tar.gz',
-  :ssh => { :password => root_pw }
+  :ssh => { :password => root_pw, :paranoid => false }
 )
 
-Net::SSH.start("#{HOSTNAME}.#{DOMAIN}", 'root', :password => root_pw) do |ssh|
+Net::SSH.start("#{HOSTNAME}.#{DOMAIN}", 'root', :password => root_pw, :paranoid => false) do |ssh|
   ssh.exec! 'tar -xv -C /mnt/ -f /tmp/config.tar.gz'
   ssh.exec! 'touch /tmp/flag-completion'
 end
