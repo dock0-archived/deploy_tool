@@ -98,6 +98,9 @@ devices['maker'] = API.linode.disk.createfromstackscript(
   stackscriptudfresponses: {
     name: HOSTNAME,
     debug: DEBUG_MODE,
+    kernel_version: '3.18-rc7_1',
+    initrd_version: '0.0.5',
+    rootfs_version: '0.0.8'
   }.to_json
 )[:diskid]
 
