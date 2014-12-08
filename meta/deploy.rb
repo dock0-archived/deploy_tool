@@ -96,4 +96,4 @@ API.linode.config.update(
   kernelid: API_IDS['pvgrub']
 )
 
-puts "Success! (maker pw is #{root_pw})"
+puts "Success! (maker pw is #{ROOT_PW})"
