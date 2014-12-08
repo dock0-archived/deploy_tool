@@ -59,7 +59,7 @@ DISKS = {}
 CONFIG['disks'].each do |disk|
   disk = Hash[disk.map { |k, v| [k.to_sym, v] }]
   result = API.linode.disk.create disk.merge(linodeid: LINODE_ID)
-  DISKS[disk[:name]] = result[:diskid]
+  DISKS[disk[:label]] = result[:diskid]
 end
 
 ROOT_PW = SecureRandom.hex(24)
