@@ -55,16 +55,16 @@ end
 
 wait_for_jobs LINODE_ID
 
-devices = CONFIG['disks'].map do |disk|
+DISKS = {}
+CONFIG['disks'].each do |disk|
   disk = Hash[disk.map { |k, v| [k.to_sym, v] }]
   result = API.linode.disk.create disk.merge(linodeid: LINODE_ID)
-  [disk['name'], result[:diskid]]
+  DISKS[disk[:name]] = result[:diskid]
 end
-DISKS = Hash[devices]
 
 ROOT_PW = SecureRandom.hex(24)
 
-DISKS['maker'] = API.linode.disk.createfromstackscript(
+DISKS[:maker] = API.linode.disk.createfromstackscript(
   linodeid: LINODE_ID,
   stackscriptid: API_IDS['stackscript'],
   distributionid: API_IDS['distribution'],
@@ -76,7 +76,7 @@ DISKS['maker'] = API.linode.disk.createfromstackscript(
 
 CONFIG_ID = API.linode.config.create(
   kernelid: API_IDS['stock_kernel'],
-  disklist: DISKS.values_at('maker', 'swap', 'root', 'lvm').join(','),
+  disklist: DISKS.values_at(:maker, :swap, :root, :lvm).join(','),
   label: 'dock0',
   linodeid: LINODE_ID
 )[:configid]
@@ -92,8 +92,8 @@ API.linode.config.update(
   helper_xen: false,
   helper_disableupdatedb: false,
   devtmpfs_automount: false,
-  disklist: DISKS.values_at('root', 'swap', 'lvm').join(','),
-  kernelid: API_ID['pvgrub']
+  disklist: DISKS.values_at(:root, :swap, :lvm).join(','),
+  kernelid: API_IDS['pvgrub']
 )
 
 puts "Success! (maker pw is #{root_pw})"
