@@ -56,6 +56,7 @@ end
 wait_for_jobs LINODE_ID
 
 devices = CONFIG['disks'].map do |disk|
+  disk = Hash[disk.map { |k, v| [k.to_sym, v] }]
   result = API.linode.disk.create disk.merge(linodeid: LINODE_ID)
   [disk['name'], result[:diskid]]
 end
