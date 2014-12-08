@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
 
-echo "placeholder"
+set -e
+
+pacman -Syu --needed --noconfirm docker
+
+pvcreate /dev/xvdd
+vgcreate dock0 /dev/xvdd
+
+lvcreate -L 10G -n tmp dock0
+mkfs.ext4 /dev/dock0/tmp
+mkdir -p /var/lib/docker
+mount /dev/dock0/tmp /var/lib/docker
+systemctl start docker
+
+mkdir -p /run/dock0/bootmnt
+mount /dev/xvdc /run/dock0/bootmnt
+docker run -ti -v /run/dock0/bootmnt:/run/dock0/bootmnt dock0/vm_install
 
