@@ -30,7 +30,6 @@ end
 api_key = `./meta/getkey.rb`
 API = LinodeAPI::Raw.new(apikey: api_key)
 
-puts 'Updating stackscript'
 API.stackscript.update(
   stackscriptid: API_IDS['stackscript'],
   distributionidlist: API_IDS['distribution'],
