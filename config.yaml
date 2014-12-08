@@ -5,7 +5,7 @@ api_ids:
   distribution: 132
   stock_kernel: 138
   pvgrub: 95
-stackscript: ./stackscript
+stackscript: ./meta/stackscript
 disks:
   - label: swap
     size: 128
