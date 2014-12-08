@@ -1,147 +1,98 @@
 #!/usr/bin/env ruby
 
 require 'linodeapi'
-require 'net/ssh'
-require 'net/scp'
 require 'json'
-require 'securerandom'
-require 'dock0'
-require 'fileutils'
 require 'yaml'
-
-config = YAML.read
-
-STACKSCRIPT_ID = 9930
-DISTRIBUTION_ID = 132
-KERNEL_ID = 138
-PV_GRUB_ID = 95
-DOMAIN = 'a-rwx.org'
+require 'securerandom'
+require 'fileutils'
 
 HOSTNAME = ARGV.first || fail('Please supply a hostname')
-DEBUG_MODE = ARGV[1].nil? ? 0 : 1
+CONFIG_FILES = ['config.yaml', "configs/#{HOSTNAME}.yaml"]
+CONFIG = CONFIG_FILES.each_with_object({}) do |file, obj|
+  next unless File.exist? file
+  obj.merge! YAML.load(File.read(file))
+end
+API_IDS = CONFIG['api_ids']
 
-def jobs_running?(linode)
-  jobs = API.linode.job.list(linodeid: linode)
+def jobs_running?(linodeid)
+  jobs = API.linode.job.list(linodeid: linodeid)
   jobs.select { |job| job[:host_finish_dt] == '' }.length > 0
 end
 
-def wait_for_jobs(linode)
-  while jobs_running? linode
+def wait_for_jobs(linodeid)
+  while jobs_running? linodeid
     print '.'
     sleep 5
   end
   puts
 end
 
-Dock0.easy_mode :Config, ['config.yaml', "configs/#{HOSTNAME}.yaml"]
-
 api_key = `./meta/getkey.rb`
 API = LinodeAPI::Raw.new(apikey: api_key)
 
 puts 'Updating stackscript'
 API.stackscript.update(
-  stackscriptid: STACKSCRIPT_ID,
-  distributionidlist: DISTRIBUTION_ID,
-  script: File.read(File.expand_path('..', __FILE__) + '/stackscript')
+  stackscriptid: API_IDS['stackscript'],
+  distributionidlist: API_IDS['distribution'],
+  script: File.read(CONFIG['stackscript'])
 )
 
 linode = API.linode.list.find { |l| l[:label] == HOSTNAME }
-linode = linode.fetch(:linodeid) { fail 'Linode not found' }
+LINODE_ID = linode.fetch(:linodeid) { fail 'Linode not found' }
 
 existing = {
-  configs: API.linode.config.list(linodeid: linode),
-  disks: API.linode.disk.list(linodeid: linode)
+  configs: API.linode.config.list(linodeid: LINODE_ID),
+  disks: API.linode.disk.list(linodeid: LINODE_ID)
 }
 
-if existing.values.reduce(:+).size > 0
-  existing.each do |type, things|
-    puts "#{type.capitalize}:"
-    things.each { |thing| puts "    #{thing[:label]}" }
-  end
-  puts 'Hit enter to confirm deletion of those configs and disks'
-  STDIN.gets
-end
-
-API.linode.shutdown(linodeid: linode)
+API.linode.shutdown(linodeid: LINODE_ID)
 existing[:configs].each do |config|
-  API.linode.config.delete(linodeid: linode, configid: config[:configid])
+  API.linode.config.delete(linodeid: LINODE_ID, configid: config[:configid])
 end
 existing[:disks].each do |disk|
-  API.linode.disk.delete(linodeid: linode, diskid: disk[:diskid])
+  API.linode.disk.delete(linodeid: LINODE_ID, diskid: disk[:diskid])
 end
 
-wait_for_jobs linode
+wait_for_jobs LINODE_ID
 
-devices = [
-  ['swap', 128, :swap],
-  ['root', 7_040, :ext4],
-  ['lvm', 40_960, :raw]
-]
-
-devices.map! do |name, size, type|
-  disk = API.linode.disk.create(
-    linodeid: linode,
-    label: name,
-    size: size,
-    type: type
-  )
-  [name, disk[:diskid]]
+devices = CONFIG['disks'].map do |disk|
+  result = API.linode.disk.create disk.merge(linodeid: LINODE_ID)
+  [disk['name'], result[:diskid]]
 end
+DISKS = Hash[devices]
 
-devices = Hash[devices]
+ROOT_PW = SecureRandom.hex(24)
 
-root_pw = SecureRandom.hex(24)
-
-devices['maker'] = API.linode.disk.createfromstackscript(
-  linodeid: linode,
-  stackscriptid: STACKSCRIPT_ID,
-  distributionid: DISTRIBUTION_ID,
-  rootpass: root_pw,
+DISKS['maker'] = API.linode.disk.createfromstackscript(
+  linodeid: LINODE_ID,
+  stackscriptid: API_IDS['stackscript'],
+  distributionid: API_IDS['distribution'],
+  rootpass: ROOT_PW,
   label: 'maker',
   size: 1024,
-  stackscriptudfresponses: {
-    name: HOSTNAME,
-    debug: DEBUG_MODE,
-    kernel_version: '3.18-rc7_1',
-    initrd_version: '0.0.5',
-    rootfs_version: '0.0.8'
-  }.to_json
+  stackscriptudfresponses: { name: HOSTNAME }.to_json
 )[:diskid]
 
-config = API.linode.config.create(
-  kernelid: KERNEL_ID,
-  disklist: devices.values_at('maker', 'swap', 'root', 'lvm').join(','),
+CONFIG_ID = API.linode.config.create(
+  kernelid: API_IDS['stock_kernel'],
+  disklist: DISKS.values_at('maker', 'swap', 'root', 'lvm').join(','),
   label: 'dock0',
-  linodeid: linode
+  linodeid: LINODE_ID
 )[:configid]
 
-API.linode.boot(linodeid: linode, configid: config)
+API.linode.boot(linodeid: LINODE_ID, configid: CONFIG_ID)
 sleep 2
-wait_for_jobs linode
+wait_for_jobs LINODE_ID
 
 API.linode.config.update(
-  linodeid: linode,
-  configid: config,
+  linodeid: LINODE_ID,
+  configid: CONFIG_ID,
   helper_depmod: false,
   helper_xen: false,
   helper_disableupdatedb: false,
   devtmpfs_automount: false,
-  disklist: devices.values_at('root', 'swap', 'lvm').join(','),
-  kernelid: PV_GRUB_ID
+  disklist: DISKS.values_at('root', 'swap', 'lvm').join(','),
+  kernelid: API_ID['pvgrub']
 )
 
-Net::SCP.upload!(
-  "#{HOSTNAME}.#{DOMAIN}",
-  'root',
-  'build.tar.gz',
-  '/tmp/config.tar.gz',
-  :ssh => { :password => root_pw, :paranoid => false }
-)
-
-Net::SSH.start("#{HOSTNAME}.#{DOMAIN}", 'root', :password => root_pw, :paranoid => false) do |ssh|
-  ssh.exec! 'tar -xv -C /mnt/ -f /tmp/config.tar.gz'
-  ssh.exec! 'touch /tmp/flag-completion'
-end
-
-puts 'Success!'
-puts "(maker pw is #{root_pw})" if DEBUG_MODE
+puts "Success! (maker pw is #{root_pw})"

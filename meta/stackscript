@@ -1,38 +1,4 @@
 #!/usr/bin/env bash
-#<udf name="name" label="Hostname">
-#<udf name="debug" label="Debug Mode">
-#<udf name="kernel_version" label="Kernel Version">
-#<udf name="initrd_version" label="Initrd Version">
-#<udf name="rootfs_version" label="RootFS Version">
 
-if [[ "$DEBUG" == '1' ]] ; then
-    echo 'Debug mode enabled'
-    touch /tmp/debug_mode
-fi
-
-mount /dev/xvdc /mnt
-mkdir -p /mnt/boot/grub /mnt/{kernels,initrds,roots}
-
-wget -O /mnt/kernels/$KERNEL_VERSION https://github.com/dock0/kernels/releases/download/$KERNEL_VERSION/vmlinuz
-wget -O /mnt/initrds/$INITRD_VERSION https://github.com/dock0/initrd/releases/download/$INITRD_VERSION/initrd.img
-wget -O /mnt/roots/$ROOTFS_VERSION https://github.com/dock0/vm_root/releases/download/$ROOTFS_VERSION/root.fs.sfs
-
-ln -s kernels/$KERNEL_VERSION /mnt/vmlinuz
-ln -s initrds/$INITRD_VERSION /mnt/initrd.img
-ln -s roots/$ROOTFS_VERSION /mnt/root.fs.sfs
-
-echo "timeout 10
-default 0
-
-title dock0
-root (hd0)
-kernel /vmlinuz root=/dev/xvda cow_dev=/dev/dock0/cowland
-initrd /initrd.img" > /mnt/boot/grub/menu.lst
-
-echo 'Waiting for configuration flag'
-while [ ! -f /tmp/flag-completion ] ; do
-  sleep 5
-done
-
-shutdown
+echo "placeholder"
 
