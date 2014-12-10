@@ -4,6 +4,9 @@ set -e
 
 pacman -Syu --needed --noconfirm docker
 
+[[ -n "$(vgs)" ]] && vgs --noheadings -o vg_name | xargs -n1 vgremove -f
+[[ -n "$(pvs)" ]] && pvs --noheadings -o pv_name | xargs -n1 pvremove -f
+
 pvcreate /dev/xvdd
 vgcreate dock0 /dev/xvdd
 
