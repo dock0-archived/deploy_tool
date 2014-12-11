@@ -90,6 +90,7 @@ API.linode.config.update(
   helper_depmod: false,
   helper_xen: false,
   helper_disableupdatedb: false,
+  helper_network: false,
   devtmpfs_automount: false,
   disklist: DISKS.values_at(:root, :swap, :lvm).join(','),
   kernelid: API_IDS['pvgrub']
