@@ -72,10 +72,11 @@ DISKS[:maker] = API.linode.disk.createfromstackscript(
   size: 1024,
   stackscriptudfresponses: { name: HOSTNAME }.to_json
 )[:diskid]
+DISKS[:finnix] = API_IDS['finnix']
 
 CONFIG_ID = API.linode.config.create(
   kernelid: API_IDS['stock_kernel'],
-  disklist: DISKS.values_at(:maker, API_IDS['finnix'], :root, :lvm).join(','),
+  disklist: DISKS.values_at(:maker, :finnix, :root, :lvm).join(','),
   label: 'dock0',
   linodeid: LINODE_ID
 )[:configid]
