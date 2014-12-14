@@ -7,11 +7,8 @@ api_ids:
   pvgrub: 95
 stackscript: ./meta/stackscript
 disks:
-  - label: swap
-    size: 128
-    type: swap
   - label: root
-    size: 7040
+    size: 7168
     type: ext4
   - label: lvm
     size: 40960
