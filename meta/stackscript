@@ -10,7 +10,7 @@ pacman -Syu --needed --noconfirm docker
 pvcreate /dev/xvdd
 vgcreate dock0 /dev/xvdd
 
-lvcreate -L 10G -n tmp dock0
+lvcreate -L 10G -Wn -n tmp dock0
 mkfs.ext4 /dev/dock0/tmp
 mkdir -p /var/lib/docker
 mount /dev/dock0/tmp /var/lib/docker
