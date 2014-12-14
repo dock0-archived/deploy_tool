@@ -75,7 +75,7 @@ DISKS[:maker] = API.linode.disk.createfromstackscript(
 
 CONFIG_ID = API.linode.config.create(
   kernelid: API_IDS['stock_kernel'],
-  disklist: DISKS.values_at(:maker, :swap, :root, :lvm).join(','),
+  disklist: DISKS.values_at(:maker, API_IDS['finnix'], :root, :lvm).join(','),
   label: 'dock0',
   linodeid: LINODE_ID
 )[:configid]
@@ -92,7 +92,7 @@ API.linode.config.update(
   helper_disableupdatedb: false,
   helper_network: false,
   devtmpfs_automount: false,
-  disklist: DISKS.values_at(:root, :swap, :lvm).join(','),
+  disklist: DISKS.values_at(:root, :lvm).join(','),
   kernelid: API_IDS['pvgrub']
 )
 

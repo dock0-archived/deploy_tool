@@ -5,6 +5,7 @@ api_ids:
   distribution: 132
   stock_kernel: 138
   pvgrub: 95
+  finnix: 25665
 stackscript: ./meta/stackscript
 disks:
   - label: root
