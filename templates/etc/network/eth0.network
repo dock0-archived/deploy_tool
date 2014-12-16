@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ip linke set eth0 up
+ip link set eth0 up
 
 hostname -F /etc/hostname
 
