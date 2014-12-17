@@ -21,7 +21,7 @@ conn.open_timeout = 2
 req = Net::HTTP::Get.new '/'
 begin
   conn.request req
-rescue Net::OpenTimeout
+rescue Net::OpenTimeout, Errno::ECONNREFUSED
   sleep 5
   retry
 end
