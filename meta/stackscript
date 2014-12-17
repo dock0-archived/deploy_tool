@@ -20,7 +20,7 @@ mkdir -p /run/dock0/bootmnt
 mount /dev/xvdc /run/dock0/bootmnt
 docker run -ti -v /run/dock0/bootmnt:/run/dock0/bootmnt dock0/vm_install
 
-docker run -ti -v /run/dock0/bootmnt:/run/dock0/bootmnt -p 1001:22 -p 1002:80 vm_config
+docker run -ti -v /run/dock0/bootmnt:/run/dock0/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
 
 #shutdown
 
