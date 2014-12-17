@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 cd /srv
-echo "pong" > ping
+echo "pong" > index.html
 python3 -m http.server 80
 
