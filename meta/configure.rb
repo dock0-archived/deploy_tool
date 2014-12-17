@@ -34,6 +34,6 @@ ssh_options = [
   'AddressFamily=inet'
 ]
 system "scp #{ssh_options.map { |x| '-o' + x }.join(' ')} build.tar.gz akerl@grego.a-rwx.org:/tmp/"
-system "ssh #{ssh_options.map { |x| '-o' + x }.join(' ')} akerl@grego.a-rwx.org touch /tmp/.keep"
+system "ssh #{ssh_options.map { |x| '-o' + x }.join(' ')} akerl@grego.a-rwx.org touch /tmp/.done"
 
 puts 'Done!'
