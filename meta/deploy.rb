@@ -104,7 +104,7 @@ conn = Net::HTTP.new('grego.a-rwx.org', 1002)
 conn.open_timeout = 2
 begin
   sleep 5
-  x.request('/')
+  conn.request('/')
 rescue Net::OpenTimeout
   retry
 end
