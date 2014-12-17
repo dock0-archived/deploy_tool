@@ -33,7 +33,7 @@ ssh_options = [
   'Port=1001',
   'AddressFamily=inet'
 ].map { |x| '-o' + x }.join(' ')
-host = "#{CONFIG['user']}@#{HOSTNAME}.#{CONFIG['domain']}"
+host = "#{CONFIG['ssh_user']}@#{HOSTNAME}.#{CONFIG['domain']}"
 system "scp #{ssh_options} build.tar.gz #{host}:/tmp/"
 system "ssh #{ssh_options} #{host} touch /tmp/.done"
 

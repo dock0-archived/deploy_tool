@@ -1,4 +1,5 @@
 ---
+ssh_user: akerl
 domain: a-rwx.org
 api_ids:
   stackscript: 9930
