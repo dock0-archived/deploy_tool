@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'net/http'
+require 'resolv'
 require 'dock0'
 
 HOSTNAME = ARGV.first || fail('Please supply a hostname')
@@ -14,11 +15,13 @@ puts 'Building config tarball'
 Dock0.easy_mode :Config, CONFIG_FILES
 
 puts 'Waiting for config flag'
-conn = Net::HTTP.new("#{HOSTNAME}.#{CONFIG['domain']}", 1002)
+ip = Resolv.getaddress "#{HOSTNAME}.#{CONFIG['domain']}"
+conn = Net::HTTP.new(ip, 1002)
 conn.open_timeout = 2
+req = Net::HTTP::Get.new '/'
 begin
   sleep 5
-  conn.request('/')
+  conn.request req
 rescue Net::OpenTimeout
   retry
 end
