@@ -11,7 +11,7 @@ CONFIG = CONFIG_FILES.each_with_object({}) do |file, obj|
 end
 
 puts 'Building config tarball'
-Dock0.easy_mode :Config, *CONFIG_FILES
+Dock0.easy_mode :Config, CONFIG_FILES
 
 puts 'Waiting for config flag'
 conn = Net::HTTP.new("#{HOSTNAME}#{CONFIG['domain']}", 1002)
