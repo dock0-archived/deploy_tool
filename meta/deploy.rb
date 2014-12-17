@@ -31,6 +31,7 @@ end
 api_key = `./meta/getkey.rb`
 API = LinodeAPI::Raw.new(apikey: api_key)
 
+puts 'Updating StackScript'
 API.stackscript.update(
   stackscriptid: API_IDS['stackscript'],
   distributionidlist: API_IDS['distribution'],
@@ -45,6 +46,7 @@ existing = {
   disks: API.linode.disk.list(linodeid: LINODE_ID)
 }
 
+puts 'Shutting down and removing existing data'
 API.linode.shutdown(linodeid: LINODE_ID)
 existing[:configs].each do |config|
   API.linode.config.delete(linodeid: LINODE_ID, configid: config[:configid])
@@ -55,6 +57,7 @@ end
 
 wait_for_jobs LINODE_ID
 
+puts 'Creating new disks'
 DISKS = {}
 CONFIG['disks'].each do |disk|
   disk = Hash[disk.map { |k, v| [k.to_sym, v] }]
@@ -82,6 +85,7 @@ CONFIG_ID = API.linode.config.create(
   linodeid: LINODE_ID
 )[:configid]
 
+puts 'Booting maker image'
 API.linode.boot(linodeid: LINODE_ID, configid: CONFIG_ID)
 sleep 2
 wait_for_jobs LINODE_ID
