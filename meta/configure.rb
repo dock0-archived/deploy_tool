@@ -14,7 +14,6 @@ puts 'Building config tarball'
 Dock0.easy_mode :Config, CONFIG_FILES
 
 puts 'Waiting for config flag'
-p CONFIG
 conn = Net::HTTP.new("#{HOSTNAME}.#{CONFIG['domain']}", 1002)
 conn.open_timeout = 2
 begin
