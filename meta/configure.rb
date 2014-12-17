@@ -20,9 +20,9 @@ conn = Net::HTTP.new(ip, 1002)
 conn.open_timeout = 2
 req = Net::HTTP::Get.new '/'
 begin
-  sleep 5
   conn.request req
 rescue Net::OpenTimeout
+  sleep 5
   retry
 end
 
