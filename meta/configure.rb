@@ -32,8 +32,9 @@ ssh_options = [
   'UserKnownHostsFile=/dev/null',
   'Port=1001',
   'AddressFamily=inet'
-]
-system "scp #{ssh_options.map { |x| '-o' + x }.join(' ')} build.tar.gz akerl@grego.a-rwx.org:/tmp/"
-system "ssh #{ssh_options.map { |x| '-o' + x }.join(' ')} akerl@grego.a-rwx.org touch /tmp/.done"
+].map { |x| '-o' + x }.join(' ')
+host = "#{CONFIG['user']}@#{HOSTNAME}.#{CONFIG['domain']}"
+system "scp #{ssh_options} build.tar.gz #{host}:/tmp/"
+system "ssh #{ssh_options} #{host} touch /tmp/.done"
 
 puts 'Done!'
