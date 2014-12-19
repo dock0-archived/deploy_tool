@@ -1,6 +1,8 @@
 ---
 ssh_user: akerl
 domain: a-rwx.org
+full_name: Les Aker
+email: me@lesaker.org
 api_ids:
   stackscript: 9930
   distribution: 132
