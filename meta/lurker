@@ -4,7 +4,7 @@ while [ ! -e /tmp/.done ] ; do
     sleep 2
 done
 
-tar -xo -C /run/dock0/bootmnt -f /tmp/build.tar.gz
+tar -xo -C /run/vm/bootmnt -f /tmp/build.tar.gz
 
 sleep 1
 

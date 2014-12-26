@@ -26,7 +26,7 @@ To update the configuration on an existing deployment, start the vm_config conta
 
 ```
 ## On the VM
-docker run -ti -v /run/dock0/bootmnt:/run/dock0/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
+docker run -ti -v /run/vm/bootmnt:/run/vm/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
 ## On the local system
 ./meta/configure.rb <hostname>
 ```

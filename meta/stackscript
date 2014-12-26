@@ -16,11 +16,11 @@ mkdir -p /var/lib/docker
 mount /dev/dock0/tmp /var/lib/docker
 systemctl start docker
 
-mkdir -p /run/dock0/bootmnt
-mount /dev/xvdc /run/dock0/bootmnt
-docker run -ti -v /run/dock0/bootmnt:/run/dock0/bootmnt dock0/vm_install
+mkdir -p /run/vm/bootmnt
+mount /dev/xvdc /run/vm/bootmnt
+docker run -ti -v /run/vm/bootmnt:/run/vm/bootmnt dock0/vm_install
 
-docker run -ti -v /run/dock0/bootmnt:/run/dock0/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
+docker run -ti -v /run/vm/bootmnt:/run/vm/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
 
 shutdown now
 
