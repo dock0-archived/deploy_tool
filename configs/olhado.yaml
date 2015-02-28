@@ -1,4 +1,6 @@
 ---
+paths:
+  output: ./build-olhado.tar.gz
 hostname: olhado
 networking:
   ipv4_addrs:

@@ -1,4 +1,6 @@
 ---
+paths:
+  output: ./build-miro.tar.gz
 hostname: miro
 networking:
   ipv4_addrs:

@@ -1,4 +1,6 @@
 ---
+paths:
+  output: ./build-ela.tar.gz
 hostname: ela
 networking:
   ipv4_addrs:

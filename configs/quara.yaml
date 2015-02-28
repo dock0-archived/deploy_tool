@@ -1,4 +1,6 @@
 ---
+paths:
+  output: ./build-quara.tar.gz
 hostname: quara
 networking:
   ipv4_addrs:

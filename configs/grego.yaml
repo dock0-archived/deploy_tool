@@ -1,4 +1,6 @@
 ---
+paths:
+  output: ./build-grego.tar.gz
 hostname: grego
 networking:
   ipv4_addrs:

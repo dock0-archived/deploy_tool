@@ -34,7 +34,7 @@ ssh_options = [
   'AddressFamily=inet'
 ].map { |x| '-o' + x }.join(' ')
 host = "#{CONFIG['ssh_user']}@#{HOSTNAME}.#{CONFIG['domain']}"
-system "scp #{ssh_options} build.tar.gz #{host}:/tmp/"
+system "scp #{ssh_options} build-#{HOSTNAME}.tar.gz #{host}:/tmp/build.tar.gz"
 system "ssh #{ssh_options} #{host} touch /tmp/.done"
 
 puts 'Done!'
