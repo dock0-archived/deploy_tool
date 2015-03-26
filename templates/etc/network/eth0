@@ -6,12 +6,12 @@ hostname -F /etc/hostname
 
 echo 0 > /proc/sys/net/ipv6/conf/eth0/accept_ra
 
-<% @config['networking']['ipv4_addrs'].each do |addr| %>
+<% @config[:networking][:ipv4_addrs].each do |addr| %>
 ip addr add dev eth0 <%= addr %> brd +
 <% end %>
-<% @config['networking']['ipv6_addrs'].each do |addr| %>
+<% @config[:networking][:ipv6_addrs].each do |addr| %>
 ip -6 addr add dev eth0 <%= addr %>
 <% end %>
-ip route add default via <%= @config['networking']['ipv4_gateway'] %>
-ip -6 route add default via <%= @config['networking']['ipv6_gateway'] %> dev eth0
+ip route add default via <%= @config[:networking][:ipv4_gateway] %>
+ip -6 route add default via <%= @config[:networking][:ipv6_gateway] %> dev eth0
 
