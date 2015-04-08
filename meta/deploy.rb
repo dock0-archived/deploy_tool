@@ -39,7 +39,7 @@ API.stackscript.update(
 )
 
 linode = API.linode.list.find { |l| l[:label] == HOSTNAME }
-LINODE_ID = linode.fetch(:linodeid) { fail 'Linode not found' }
+LINODE_ID = linode.linodeid || fail('Linode not found')
 
 existing = {
   configs: API.linode.config.list(linodeid: LINODE_ID),
