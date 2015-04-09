@@ -2,10 +2,7 @@
 
 set -e
 
-if [ "$(tty)" == '/dev/tty1' ] ; then
-    exec sleep 1
-fi
-
+pacman -Sy --noconfirm archlinux-keyring
 pacman -Syu --needed --noconfirm docker
 
 [[ -n "$(vgs)" ]] && vgs --noheadings -o vg_name | xargs -n1 vgremove -f
