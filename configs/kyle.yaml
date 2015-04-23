@@ -1,0 +1,13 @@
+---
+paths:
+  output: ./build-kyle.tar.gz
+hostname: kyle
+networking:
+  ipv4_addrs:
+    - 139.162.12.7/24
+    - 192.168.146.3/17
+  ipv4_gateway: 139.162.12.1
+  ipv6_addrs:
+    - 2400:8901::f03c:91ff:fe18:7be7/64
+  ipv6_gateway: fe80::1
+...

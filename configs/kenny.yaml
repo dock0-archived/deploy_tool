@@ -1,0 +1,13 @@
+---
+paths:
+  output: ./build-kenny.tar.gz
+hostname: kenny
+networking:
+  ipv4_addrs:
+    - 139.162.4.9/24
+    - 192.168.157.2/17
+  ipv4_gateway: 139.162.4.1
+  ipv6_addrs:
+    - 2400:8901::f03c:91ff:fe18:7bb9/64
+  ipv6_gateway: fe80::1
+...
