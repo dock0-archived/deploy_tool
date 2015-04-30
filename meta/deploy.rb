@@ -29,6 +29,7 @@ def wait_for_jobs(linodeid)
 end
 
 api_key = `./meta/getkey.rb`
+fail('API key request failed') if api_key.empty?
 API = LinodeAPI::Raw.new(apikey: api_key)
 
 puts 'Updating StackScript'
