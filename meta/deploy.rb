@@ -4,12 +4,13 @@ require 'linodeapi'
 require 'json'
 require 'yaml'
 require 'securerandom'
+require 'meld'
 
 HOSTNAME = ARGV.first || fail('Please supply a hostname')
 CONFIG_FILES = ['config.yaml', "configs/#{HOSTNAME}.yaml"]
 CONFIG = CONFIG_FILES.each_with_object({}) do |file, obj|
   next unless File.exist? file
-  obj.merge! YAML.load(File.read(file))
+  obj.deep_merge! YAML.load(File.read(file))
 end
 API_IDS = CONFIG['api_ids']
 
