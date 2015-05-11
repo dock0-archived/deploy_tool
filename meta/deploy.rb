@@ -4,8 +4,6 @@ require 'linodeapi'
 require 'json'
 require 'yaml'
 require 'securerandom'
-require 'fileutils'
-require 'net/http'
 
 HOSTNAME = ARGV.first || fail('Please supply a hostname')
 CONFIG_FILES = ['config.yaml', "configs/#{HOSTNAME}.yaml"]
