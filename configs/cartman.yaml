@@ -1,0 +1,13 @@
+---
+paths:
+  output: ./build-cartman.tar.gz
+hostname: cartman
+networking:
+  ipv4_addrs:
+    - 173.255.214.95/24
+    - 192.168.201.63/17
+  ipv4_gateway: 173.255.214.1
+  ipv6_addrs:
+    - 2600:3c01::f03c:91ff:fe37:f2e8/64
+  ipv6_gateway: fe80::1
+...
