@@ -8,8 +8,14 @@ pacman -Syu --needed --noconfirm docker
 [[ -n "$(vgs)" ]] && vgs --noheadings -o vg_name | xargs -n1 vgremove -f
 [[ -n "$(pvs)" ]] && pvs --noheadings -o pv_name | xargs -n1 pvremove -f
 
-pvcreate /dev/xvdd
-vgcreate dock0 /dev/xvdd
+if [ -e /dev/xvda ] ; then
+    prefix=xvd
+else
+    prefix=sd
+fi
+
+pvcreate /dev/${prefix}d
+vgcreate dock0 /dev/${prefix}d
 
 lvcreate -L 10G -Wn -n tmp dock0
 mkfs.ext4 /dev/dock0/tmp
@@ -18,7 +24,7 @@ mount /dev/dock0/tmp /var/lib/docker
 systemctl start docker
 
 mkdir -p /run/vm/bootmnt
-mount /dev/xvdc /run/vm/bootmnt
+mount /dev/${prefix}c /run/vm/bootmnt
 docker run -ti -v /run/vm/bootmnt:/run/vm/bootmnt dock0/vm_install
 
 docker run -ti -v /run/vm/bootmnt:/run/vm/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
