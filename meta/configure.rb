@@ -10,7 +10,6 @@ CONFIG = CONFIG_FILES.each_with_object({}) do |file, obj|
   next unless File.exist? file
   obj.merge! YAML.load(File.read(file))
 end
-VERSION = CONFIG['version'] || fail('No version specified')
 
 puts 'Building config tarball'
 Dock0.easy_mode :Config, CONFIG_FILES
@@ -35,9 +34,7 @@ ssh_options = [
   'AddressFamily=inet'
 ].map { |x| '-o' + x }.join(' ')
 host = "#{CONFIG['ssh_user']}@#{HOSTNAME}.#{CONFIG['domain']}"
-source = "build-#{HOSTNAME}.tar.gz"
-target = "/run/vm/bootmnt/sources/config/#{VERSION}"
-system "scp #{ssh_options} #{source} #{host}:#{target}"
+system "scp #{ssh_options} build-#{HOSTNAME}.tar.gz #{host}:/tmp/build.tar.gz"
 system "ssh #{ssh_options} #{host} touch /tmp/.done"
 
 puts 'Done!'

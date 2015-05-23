@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-mkdir -p /run/vm/bootmnt/sources/config
-
 cd /srv
 echo "pong" > index.html
 python3 -m http.server 80
