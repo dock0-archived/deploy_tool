@@ -25,9 +25,9 @@ systemctl start docker
 
 mkdir -p /run/vm/bootmnt
 mount /dev/${prefix}c /run/vm/bootmnt
-docker run -ti -v /run/vm/bootmnt:/run/vm/bootmnt dock0/vm_install
+docker run -ti -v /dev/${prefix}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt dock0/vm_install
 
-docker run -ti -v /run/vm/bootmnt:/run/vm/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
+docker run -ti -v /dev/${previx}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
 
 shutdown now
 
