@@ -11,4 +11,6 @@ networking:
     - 2600:3c01::f03c:91ff:fe50:b041/64
     - 2600:3c01:e001:9001::1/56
   ipv6_gateway: fe80::1
+api_ids:
+  pvgrub: 210
 ...
