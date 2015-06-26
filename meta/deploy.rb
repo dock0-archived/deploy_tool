@@ -99,7 +99,7 @@ API.linode.config.update(
   helper_network: false,
   devtmpfs_automount: false,
   disklist: DISKS.values_at(:root, :lvm).join(','),
-  kernelid: API_IDS['pvgrub']
+  kernelid: API_IDS["#{CONFIG['hypervisor']}_kernel"]
 )
 
 puts "Success! (maker pw is #{ROOT_PW})"

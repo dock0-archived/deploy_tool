@@ -2,6 +2,7 @@
 paths:
   output: ./build-ela.tar.gz
 hostname: ela
+hypervisor: xen
 networking:
   ipv4_addrs:
     - 178.79.129.127/24

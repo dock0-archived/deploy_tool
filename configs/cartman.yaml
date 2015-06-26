@@ -10,6 +10,4 @@ networking:
   ipv6_addrs:
     - 2600:3c01::f03c:91ff:fe37:f2e8/64
   ipv6_gateway: fe80::1
-api_ids:
-  pvgrub: 210
 ...
