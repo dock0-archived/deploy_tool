@@ -94,7 +94,7 @@ API.linode.config.update(
   linodeid: LINODE_ID,
   configid: CONFIG_ID,
   helper_depmod: false,
-  helper_xen: false,
+  helper_distro: false,
   helper_disableupdatedb: false,
   helper_network: false,
   devtmpfs_automount: false,
