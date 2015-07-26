@@ -18,7 +18,7 @@ module API
     end
 
     def wait_for_jobs
-      while jobs_running? linodeid
+      while jobs_running?
         print '.'
         sleep 5
       end
