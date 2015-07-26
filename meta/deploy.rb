@@ -1,10 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'linodeapi'
 require 'yaml'
 require 'securerandom'
 require 'meld'
-require_relative 'helpers'
+require_relative 'api'
 
 HOSTNAME = ARGV.first || fail('Please supply a hostname')
 CONFIG_FILES = ['config.yaml', "configs/#{HOSTNAME}.yaml"]
@@ -14,14 +13,7 @@ CONFIG = CONFIG_FILES.each_with_object({}) do |file, obj|
 end
 API_IDS = CONFIG['api_ids']
 
-wrapper = APIWrapper.new
-
-auts 'Updating StackScript'
-wrapper.api.stackscript.update(
-  stackscriptid: API_IDS['stackscript'],
-  distributionidlist: API_IDS['distribution'],
-  script: File.read(CONFIG['stackscript'])
-)
+wrapper = API.new
 
 wrapper.delete_all!
 wrapper.wait_for_jobs
@@ -35,14 +27,12 @@ end
 
 ROOT_PW = SecureRandom.hex(24)
 
-DISKS[:maker] = wrapper.create_from_stackscript(
-  stackscriptid: API_IDS['stackscript'],
-  distributionid: API_IDS['distribution'],
+DISKS[:maker] = wrapper.create_from_image(
+  imageid: API_IDS['image'],
   rootpass: ROOT_PW,
   label: 'maker',
   size: 1024,
-  stackscriptudfresponses: '{}'
-)[:diskid]
+)
 DISKS[:finnix] = API_IDS['finnix']
 
 CONFIG_ID = wrapper.create_config(

@@ -3,31 +3,50 @@
 set -e
 
 pacman -Sy --noconfirm archlinux-keyring
-pacman -Syu --needed --noconfirm docker
+pacman -Syu --needed --noconfirm docker openbsd-netcat
 
-[[ -n "$(vgs)" ]] && vgs --noheadings -o vg_name | xargs -n1 vgremove -f
-[[ -n "$(pvs)" ]] && pvs --noheadings -o pv_name | xargs -n1 pvremove -f
+mkdir -p /var/lib/docker /run/vm/bootmnt
+
+cat > /etc/systemd/system/dock0.service <<EOF
+[Unit]
+Description=Build dock0
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/script
+EOF
+
+cat > /opt/script <<EOF
+#!/usr/bin/env bash
+
+set -e
+
+[[ -n "\$(vgs)" ]] && vgs --noheadings -o vg_name | xargs -n1 vgremove -f
+[[ -n "\$(pvs)" ]] && pvs --noheadings -o pv_name | xargs -n1 pvremove -f
 
 if [ -e /dev/xvda ] ; then
-    prefix=xvd
-else
-    prefix=sd
-fi
+        prefix=xvd
+    else
+            prefix=sd
+        fi
 
-pvcreate /dev/${prefix}d
-vgcreate dock0 /dev/${prefix}d
+        pvcreate /dev/\${prefix}d
+        vgcreate dock0 /dev/\${prefix}d
 
-lvcreate -L 10G -Wn -n tmp dock0
-mkfs.ext4 /dev/dock0/tmp
-mkdir -p /var/lib/docker
-mount /dev/dock0/tmp /var/lib/docker
-systemctl start docker
+        lvcreate -L 10G -Wn -n tmp dock0
+        mkfs.ext4 /dev/dock0/tmp
+        mount /dev/dock0/tmp /var/lib/docker
+        systemctl start docker
 
-mkdir -p /run/vm/bootmnt
-mount /dev/${prefix}c /run/vm/bootmnt
-docker run -ti -v /dev/${prefix}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt dock0/vm_install
-
-docker run -ti -v /dev/${previx}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
+        mount /dev/\${prefix}c /run/vm/bootmnt
+    docker run -ti -v /dev/\${prefix}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt dock0/vm_install
+docker run -ti -v /dev/\${previx}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
 
 shutdown now
+EOF
+
+ln -s /etc/systemd/system/dock0.service /etc/systemd/system/multi-user.target.wants/dock0.service
+
+echo -e "HTTP/1.1 200 OK\n\n $(date)" | nc -l -p 80
 

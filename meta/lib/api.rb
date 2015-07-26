@@ -1,4 +1,6 @@
-module APIWrapper
+require 'linodeapi'
+
+module API
   class << self
     def new(*args)
       self::Wrapper.new(*args)
@@ -47,6 +49,13 @@ module APIWrapper
       res[:diskid]
     end
 
+    def create_from_image(params)
+      res = api.linode.disk.createfromimage(
+        params.merge(linodeid: linodeid)
+      )
+      res[:diskid]
+    end
+
     def create_config(params)
       res = api.linode.config.create params.merge(linodeid: linodeid)
       res[:configid]
@@ -56,15 +65,32 @@ module APIWrapper
       res = api.linode.config.update params.merge(linodeid: linodeid)
     end
 
+    def delete_image_by_label(label)
+      api.images.list.find_all { |l| l[:label] == label }.each do |imageid|
+        api.images.delete imageid: imageid
+      end
+    end
+
+    def imagize(params)
+      res = api.linode.disk.imagize params.merge(linodeid: linodeid)
+      res[:imageid]
+    end
+
     def boot(configid)
       api.linode.boot(linodeid: linodeid, configid: configid)
       sleep 2
       wait_for_jobs
     end
 
+    def shutdown
+      api.linode.shutdown(linodeid: linodeid)
+      sleep 2
+      wait_for_jobs
+    end
+
     def api
       return @api if @api
-      api_key = `./meta/getkey.rb`
+      api_key = `./meta/lib/getkey.rb`
       fail('API key request failed') if api_key.empty?
       @api = LinodeAPI::Raw.new(apikey: api_key)
     end

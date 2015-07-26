@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 
-require 'net/http'
-require 'resolv'
 require 'dock0'
+require_relative 'helpers'
 
 HOSTNAME = ARGV.first || fail('Please supply a hostname')
 CONFIG_FILES = ['config.yaml', "configs/#{HOSTNAME}.yaml"]
@@ -15,16 +14,7 @@ puts 'Building config tarball'
 Dock0.easy_mode :Config, CONFIG_FILES
 
 puts 'Waiting for config flag'
-ip = Resolv.getaddress "#{HOSTNAME}.#{CONFIG['domain']}"
-conn = Net::HTTP.new(ip, 1002)
-conn.open_timeout = 2
-req = Net::HTTP::Get.new '/'
-begin
-  conn.request req
-rescue Net::OpenTimeout, Errno::ECONNREFUSED
-  sleep 5
-  retry
-end
+Helpers.wait_for_response "#{HOSTNAME}.#{CONFIG['domain']}", 1002
 
 puts 'Sending tarball'
 ssh_options = [
