@@ -13,7 +13,7 @@ CONFIG = CONFIG_FILES.each_with_object({}) do |file, obj|
 end
 API_IDS = CONFIG['api_ids']
 
-wrapper = API.new
+wrapper = API.new HOSTNAME
 
 wrapper.delete_all!
 wrapper.wait_for_jobs
