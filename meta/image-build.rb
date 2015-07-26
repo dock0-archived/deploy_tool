@@ -9,7 +9,7 @@ HOSTNAME = ARGV.first || fail('Please supply a hostname')
 CONFIG = YAML.load(File.read('config.yaml'))
 API_IDS = CONFIG['api_ids']
 
-wrapper = APIWrapper.new
+wrapper = API.new
 
 puts 'Updating StackScript'
 wrapper.api.stackscript.update(
