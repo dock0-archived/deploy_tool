@@ -23,7 +23,7 @@ wrapper.wait_for_jobs
 
 puts 'Creating new disks'
 ROOT_PW = SecureRandom.hex(24)
-root_id = api.create_from_stackscript(
+root_id = wrapper.create_from_stackscript(
   stackscriptid: API_IDS['stackscript'],
   distributionid: API_IDS['distribution'],
   rootpass: ROOT_PW,
