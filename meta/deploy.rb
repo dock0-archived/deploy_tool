@@ -3,7 +3,7 @@
 require 'yaml'
 require 'securerandom'
 require 'meld'
-require_relative 'api'
+require_relative 'lib/api'
 
 HOSTNAME = ARGV.first || fail('Please supply a hostname')
 CONFIG_FILES = ['config.yaml', "configs/#{HOSTNAME}.yaml"]

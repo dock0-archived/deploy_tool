@@ -2,8 +2,8 @@
 
 require 'yaml'
 require 'securerandom'
-require_relative 'api'
-require_relative 'helpers'
+require_relative 'lib/api'
+require_relative 'lib/helpers'
 
 HOSTNAME = ARGV.first || fail('Please supply a hostname')
 CONFIG = YAML.load(File.read('config.yaml'))

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'dock0'
-require_relative 'helpers'
+require_relative 'lib/helpers'
 
 HOSTNAME = ARGV.first || fail('Please supply a hostname')
 CONFIG_FILES = ['config.yaml', "configs/#{HOSTNAME}.yaml"]
