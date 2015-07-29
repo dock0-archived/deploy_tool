@@ -26,21 +26,21 @@ set -e
 [[ -n "\$(pvs)" ]] && pvs --noheadings -o pv_name | xargs -n1 pvremove -f
 
 if [ -e /dev/xvda ] ; then
-        prefix=xvd
-    else
-            prefix=sd
-        fi
+    prefix=xvd
+else
+    prefix=sd
+fi
 
-        pvcreate /dev/\${prefix}d
-        vgcreate dock0 /dev/\${prefix}d
+pvcreate /dev/\${prefix}d
+vgcreate dock0 /dev/\${prefix}d
 
-        lvcreate -L 10G -Wn -n tmp dock0
-        mkfs.ext4 /dev/dock0/tmp
-        mount /dev/dock0/tmp /var/lib/docker
-        systemctl start docker
+lvcreate -L 10G -Wn -n tmp dock0
+mkfs.ext4 /dev/dock0/tmp
+mount /dev/dock0/tmp /var/lib/docker
+systemctl start docker
 
-        mount /dev/\${prefix}c /run/vm/bootmnt
-    docker run -ti -v /dev/\${prefix}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt dock0/vm_install
+mount /dev/\${prefix}c /run/vm/bootmnt
+docker run -ti -v /dev/\${prefix}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt dock0/vm_install
 docker run -ti -v /dev/\${previx}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
 
 shutdown now
