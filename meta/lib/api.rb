@@ -66,8 +66,8 @@ module API
     end
 
     def delete_image_by_label(label)
-      api.image.list.find_all { |l| l[:label] == label }.each do |imageid|
-        api.image.delete imageid: imageid
+      api.image.list.find_all { |l| l[:label] == label }.each do |image|
+        api.image.delete imageid: image.imageid
       end
     end
 
