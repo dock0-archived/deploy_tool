@@ -47,5 +47,6 @@ wrapper.shutdown
 
 wrapper.delete_image_by_label('meta_dock0')
 image_id = wrapper.imagize(diskid: root_id)
+wrapper.wait_for_jobs
 
 puts "New image created: #{image_id}"
