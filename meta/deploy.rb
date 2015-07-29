@@ -44,7 +44,7 @@ CONFIG_ID = wrapper.create_config(
 puts 'Booting maker image'
 wrapper.boot(CONFIG_ID)
 
-wrapper.config_update(
+wrapper.update_config(
   configid: CONFIG_ID,
   helper_depmod: false,
   helper_distro: false,
