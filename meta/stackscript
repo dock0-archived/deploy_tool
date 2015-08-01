@@ -5,8 +5,6 @@ set -e
 pacman -Sy --noconfirm archlinux-keyring
 pacman -Syu --needed --noconfirm docker openbsd-netcat
 
-mkdir -p /var/lib/docker /run/vm/bootmnt
-
 cat > /etc/systemd/system/dock0.service <<EOF
 [Unit]
 Description=Build dock0
@@ -30,6 +28,8 @@ if [ -e /dev/xvda ] ; then
 else
     prefix=sd
 fi
+
+mkdir -p /var/lib/docker /run/vm/bootmnt
 
 pvcreate /dev/\${prefix}d
 vgcreate dock0 /dev/\${prefix}d
