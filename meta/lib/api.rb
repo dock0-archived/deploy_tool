@@ -65,10 +65,13 @@ module API
       res = api.linode.config.update params.merge(linodeid: linodeid)
     end
 
+    def get_image(label)
+      api.image.list.find { |l| l[:label] == label }
+    end
+
     def delete_image_by_label(label)
-      api.image.list.find_all { |l| l[:label] == label }.each do |image|
-        api.image.delete imageid: image.imageid
-      end
+      image = get_image(label)
+      api.image.delete(imageid: image.imageid) if image
     end
 
     def imagize(params)

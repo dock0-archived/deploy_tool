@@ -5,7 +5,6 @@ full_name: Les Aker
 email: me@lesaker.org
 hypervisor: kvm
 api_ids:
-  image: 441577
   stackscript: 9930
   distribution: 132
   stock_kernel: 138
