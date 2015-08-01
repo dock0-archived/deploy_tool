@@ -2,7 +2,7 @@
 
 require 'keychain'
 
-keychain = ENV['DOCK0_KEYCHAIN'] || Keychain.default
+keychain = ENV['DOCK0_KEYCHAIN'] || Keychain.default.path
 
 api_key = Keychain.open keychain
 api_key = api_key.generic_passwords.where(service: 'linode-api')
