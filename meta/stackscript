@@ -46,6 +46,7 @@ docker run -ti -v /dev/\${previx}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmn
 shutdown now
 EOF
 
+chmod a+x /opt/script
 ln -s /etc/systemd/system/dock0.service /etc/systemd/system/multi-user.target.wants/dock0.service
 
 echo -e "HTTP/1.1 200 OK\n\n $(date)" | nc -l -p 80
