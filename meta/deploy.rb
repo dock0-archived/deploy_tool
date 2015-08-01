@@ -28,7 +28,7 @@ end
 ROOT_PW = SecureRandom.hex(24)
 
 DISKS[:maker] = wrapper.create_from_image(
-  imageid: wrapper.get_image_id('meta_dock0'),
+  imageid: wrapper.get_image('meta_dock0').imageid,
   rootpass: ROOT_PW,
   label: 'maker',
   size: 1024,
