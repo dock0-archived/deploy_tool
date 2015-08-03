@@ -14,7 +14,13 @@ bundle install
 
 ## Usage
 
-To deploy a VM from scratch, run the deploy script:
+To rebuild the Image that's used to bootstrap deployments:
+
+```
+./meta/image-build.rb <hostname>
+```
+
+To deploy a VM, run the deploy script:
 
 ```
 ./meta/deploy.rb <hostname>
