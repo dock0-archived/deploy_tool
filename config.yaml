@@ -6,7 +6,7 @@ email: me@lesaker.org
 hypervisor: kvm
 api_ids:
   stackscript: 9930
-  distribution: 132
+  distribution: 142
   stock_kernel: 138
   xen_kernel: 95
   kvm_kernel: 210
