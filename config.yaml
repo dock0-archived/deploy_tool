@@ -10,7 +10,6 @@ api_ids:
   stock_kernel: 138
   xen_kernel: 95
   kvm_kernel: 210
-  pvgrub: 95
   finnix: 25665
 stackscript: ./meta/stackscript
 disks:
