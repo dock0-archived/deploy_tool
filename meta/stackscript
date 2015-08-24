@@ -2,7 +2,6 @@
 
 set -e
 
-pacman -Sy --noconfirm archlinux-keyring
 pacman -Syu --needed --noconfirm docker openbsd-netcat
 
 cat > /etc/systemd/system/dock0.service <<EOF
