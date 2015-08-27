@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 set -e
-
 haveged
 pacman-key --init
-pacman-key --populate
+
+for i in {1..5} ; do pacman-key --populate || true done
 
 pacman -Syu --needed --noconfirm docker openbsd-netcat
 
