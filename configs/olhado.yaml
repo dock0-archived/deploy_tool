@@ -2,7 +2,6 @@
 paths:
   output: ./build-olhado.tar.gz
 hostname: olhado
-hypervisor: xen
 networking:
   ipv4_addrs:
     - 70.85.129.127/24

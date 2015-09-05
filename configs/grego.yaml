@@ -2,7 +2,6 @@
 paths:
   output: ./build-grego.tar.gz
 hostname: grego
-hypervisor: xen
 networking:
   ipv4_addrs:
     - 173.230.129.127/24

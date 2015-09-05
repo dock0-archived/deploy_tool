@@ -2,7 +2,6 @@
 paths:
   output: ./build-miro.tar.gz
 hostname: miro
-hypervisor: xen
 networking:
   ipv4_addrs:
     - 97.107.129.127/24
