@@ -4,7 +4,7 @@ ip link set eth0 up
 
 hostname -F /etc/hostname
 
-echo 0 > /proc/sys/net/ipv6/conf/eth0/accept_ra
+echo -n 0 > /proc/sys/net/ipv6/conf/eth0/accept_ra
 
 <% @config[:networking][:ipv4_addrs].each do |addr| %>
 ip addr add dev eth0 <%= addr %> brd +
