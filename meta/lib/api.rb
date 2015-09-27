@@ -104,6 +104,10 @@ module API
       @linodeid = linode.linodeid || fail('Linode not found')
     end
 
+    def hypervisor
+      api.linode.list(linodeid: linodeid).first.isxen == 1 ? 'xen' : 'kvm'
+    end
+
     def existing
       [
         api.linode.config.list(linodeid: linodeid),
