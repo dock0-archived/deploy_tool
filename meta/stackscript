@@ -8,6 +8,8 @@ for i in {1..5} ; do pacman-key --populate || true ; done
 
 pacman -Syu --needed --noconfirm docker openbsd-netcat
 
+ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
+
 cat > /etc/systemd/system/dock0.service <<EOF
 [Unit]
 Description=Build dock0
