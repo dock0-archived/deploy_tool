@@ -1,0 +1,11 @@
+machine:
+  services:
+    - docker
+dependencies:
+  override:
+    - docker build -t test meta
+test:
+  override:
+    - docker run -ti test /bin/true
+    - docker run -ti test /bin/bash --version
+    - docker run -ti test which python

@@ -2,6 +2,7 @@ vm_config
 ========
 
 [![Automated Build](http://img.shields.io/badge/automated-build-green.svg)](https://hub.docker.com/r/dock0/vm_config/)
+[![Build Status](https://img.shields.io/circleci/project/dock0/vm_config.svg)](https://circleci.com/gh/dock0/vm_config)
 [![MIT Licensed](http://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 
 My configuration for [dock0](https://github.com/dock0/dock0)
