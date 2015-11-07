@@ -7,6 +7,7 @@ pacman-key --init
 for i in {1..5} ; do pacman-key --populate || true ; done
 
 pacman -Syu --needed --noconfirm docker openbsd-netcat
+pacman -R --noconfirm python python2 vim iotop xfsprogs whois vim-runtime unzip sudo screen s-nail ruby jfsutils lua nano pciutils pcmciautils reiserfsprogs
 
 ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
 
