@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+set -e
+
 CONTAINER_NAME=<%= service %>
 IMAGE_NAME=<%= container[:name] %>
 
-NEW_ID="$(docker run -d "$CONTAINER_NAME")"
+NEW_ID="$(docker run -d "$IMAGE_NAME")"
 EXISTING_ID="$(docker ps --filter "name=$CONTAINER_NAME" --quiet)"
 
 NEW_IP="$(docker inspect --format='{{.NetworkSettings.IPAddress}}' $NEW_ID)"
@@ -25,12 +27,21 @@ iptables-save \
 iptables -t nat -I DOCK0 \
   -p <%= port[:protocol] %> \
   --dport <%= port[:external] %> \
-  -j DNAT --to-destination "$NEW_IP:<%= port[:internal] %>"
+  -j DNAT --to-destination "$NEW_IP:<%= port[:internal] %>" \
   -m comment --comment $CONTAINER_NAME
 
 ip6tables -t nat -I DOCK0 \
   -p <%= port[:protocol] %> \
   --dport <%= port[:external] %> \
-  -j DNAT --to-destination "$NEW_IPV6:<%= port[:internal] %>"
+  -j DNAT --to-destination "$NEW_IPV6:<%= port[:internal] %>" \
   -m comment --comment $CONTAINER_NAME
 <% end %>
+
+if [ -n "$EXISTING_ID" ] ; then
+  docker kill $EXISTING_ID
+fi
+
+docker rename $NEW_ID $CONTAINER_NAME
+
+docker wait $NEW_ID
+
