@@ -12,7 +12,7 @@ TEMPLATE = ERB.new(File.read(TEMPLATE_FILE), nil, '<>')
 
 @config[:containers].each do |container|
   service = container[:name].gsub('/', '_')
-  dir = "#{@paths[:build]}/templates/etc/s6/services/#{service}"
+  dir = "#{@paths[:build]}/templates/etc/s6/service/#{service}"
   script = "#{dir}/run"
 
   FileUtils.mkdir_p dir
