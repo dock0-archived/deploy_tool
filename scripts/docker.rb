@@ -4,7 +4,6 @@
 require 'fileutils'
 require 'erb'
 
-return
 return unless @config[:containers]
 
 TEMPLATE_DIR = @paths[:assets] || './assets'
