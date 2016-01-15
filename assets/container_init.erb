@@ -19,9 +19,9 @@ iptables-save \
 
 # Add new iptables rules
 
-<% container.ports.each do |port| -%>
-<% port[:protocol] ||= 'tcp' -%>
-<% port[:external] ||= port[:internal] -%>
+<% (container[:ports] || []).each do |port| %>
+<% port[:protocol] ||= 'tcp' %>
+<% port[:external] ||= port[:internal] %>
 iptables -t nat -I DOCK0 \
   -p <%= port[:protocol] %> \
   --dport <%= port[:external] %> \
@@ -33,4 +33,4 @@ ip6tables -t nat -I DOCK0 \
   --dport <%= port[:external] %> \
   -j DNAT --to-destination "$NEW_IPV6:<%= port[:internal] %>"
   -m comment --comment $CONTAINER_NAME
-<% end -%>
+<% end %>
