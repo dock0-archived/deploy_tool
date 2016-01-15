@@ -19,5 +19,5 @@ disks:
     size: 40960
     type: raw
 networking:
-  docker0_ipv6_prefix: fd00::
+  docker0_ipv6_prefix: 'fd00::'
 ...
