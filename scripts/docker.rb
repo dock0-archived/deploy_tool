@@ -20,6 +20,6 @@ TEMPLATES = Hash[%w(run finish).map { |x| [x, load_template(x)] }]
   TEMPLATES.each do |file, template|
     script = "#{dir}/#{file}"
     FileUtils.mkdir_p dir
-    File.open(script, 'w', 0755) { |fh| fh.write TEMPLATE.result(binding) }
+    File.open(script, 'w', 0755) { |fh| fh.write template.result(binding) }
   end
 end
