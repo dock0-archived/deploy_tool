@@ -2,7 +2,7 @@
 
 set -e
 
-CONTAINER_NAME=<%= service %>
+CONTAINER_NAME=<%= container[:service] %>
 IMAGE_NAME=<%= container[:name] %>
 
 NEW_ID="$(docker run -d "$IMAGE_NAME")"

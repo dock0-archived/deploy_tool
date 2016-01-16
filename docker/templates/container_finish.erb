@@ -2,7 +2,7 @@
 
 set -e
 
-CONTAINER_NAME=<%= service %>
+CONTAINER_NAME=<%= container[:service] %>
 
 EXISTING_ID="$(docker ps --filter "name=$CONTAINER_NAME" --quiet)"
 
