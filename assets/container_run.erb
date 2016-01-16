@@ -11,13 +11,18 @@ EXISTING_ID="$(docker ps --filter "name=$CONTAINER_NAME" --quiet)"
 NEW_IP="$(docker inspect --format='{{.NetworkSettings.IPAddress}}' $NEW_ID)"
 NEW_MAC="$(docker inspect --format='{{.NetworkSettings.MacAddress}}' $NEW_ID)"
 NEW_PREFIX="<%= @config[:networking][:docker0_ipv6_prefix] %>"
-NEW_IPV6="${NEW_PREFIX}::$(slacker $NEW_MAC)"
+NEW_IPV6="${NEW_PREFIX}$(slacker $NEW_MAC)"
 
 # Remove all old iptables rules
 iptables-save \
   | grep -- "--comment $CONTAINER_NAME" \
   | sed 's/^-A/-D/' \
   | xargs -n1 -I{} -d"\n" bash -c "iptables -t nat {}"
+
+ip6tables-save \
+  | grep -- "--comment $CONTAINER_NAME" \
+  | sed 's/^-A/-D/' \
+  | xargs -n1 -I{} -d"\n" bash -c "ip6tables -t nat {}"
 
 # Add new iptables rules
 
@@ -33,12 +38,13 @@ iptables -t nat -I DOCK0 \
 ip6tables -t nat -I DOCK0 \
   -p <%= port[:protocol] %> \
   --dport <%= port[:external] %> \
-  -j DNAT --to-destination "$NEW_IPV6:<%= port[:internal] %>" \
+  -j DNAT --to-destination "[$NEW_IPV6]:<%= port[:internal] %>" \
   -m comment --comment $CONTAINER_NAME
 <% end %>
 
 if [ -n "$EXISTING_ID" ] ; then
   docker kill $EXISTING_ID
+  docker rm $EXISTING_ID
 fi
 
 docker rename $NEW_ID $CONTAINER_NAME

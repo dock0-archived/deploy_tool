@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e
+
+CONTAINER_NAME=<%= service %>
+
+EXISTING_ID="$(docker ps --filter "name=$CONTAINER_NAME" --quiet)"
+
+if [ -n "$EXISTING_ID" ] ; then
+  docker kill $EXISTING_ID
+  docker rm $EXISTING_ID
+fi
+
+# Remove all old iptables rules
+iptables-save \
+  | grep -- "--comment $CONTAINER_NAME" \
+  | sed 's/^-A/-D/' \
+  | xargs -n1 -I{} -d"\n" bash -c "iptables -t nat {}"
+
+ip6tables-save \
+  | grep -- "--comment $CONTAINER_NAME" \
+  | sed 's/^-A/-D/' \
+  | xargs -n1 -I{} -d"\n" bash -c "ip6tables -t nat {}"
+
