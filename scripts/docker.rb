@@ -20,7 +20,7 @@ end
 def add_envfile(container)
   return unless container[:envfile]
   data = load_envfile(container, 'txt') { |x| File.read(x) }
-  data ||= load_envfile(container, 'rb') { |x| `#{x}` }
+  data ||= load_envfile(container, 'rb') { |x| `ruby "#{x}"` }
   fail("No envfile found: #{container[:envfile]}") unless data
   target_file = File.join ENVFILE_TARGET_DIR, container[:service]
   FileUtils.mkdir_p ENVFILE_TARGET_DIR
