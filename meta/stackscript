@@ -47,7 +47,7 @@ systemctl start docker
 
 mount /dev/\${prefix}c /run/vm/bootmnt
 docker run -v /dev/\${prefix}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt dock0/vm_spec
-docker run -v /dev/\${previx}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt -p 1001:22 -p 1002:80 dock0/vm_config
+docker run -v /dev/\${previx}c:/opt/device -v /run/vm/bootmnt:/run/vm/bootmnt -p 1001:22 -p 1002:80 dock0/deploy_tool
 
 shutdown now
 EOF
