@@ -15,12 +15,12 @@ containers:
 - name: dock0/manager
   ports:
   - internal: 22
-    external: 20
+    external: 222
   volumes:
   - /var/lib/dock0-manager:/var/lib/dock0-manager
   - /var/run/docker.sock:/var/run/docker.sock
 - name: amylum/builder
   ports:
   - internal: 22
-    external: 24
+    external: 122
 ...
