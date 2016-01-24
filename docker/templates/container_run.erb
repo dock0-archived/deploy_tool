@@ -9,7 +9,11 @@ IMAGE_NAME=<%= container[:name] %>
 ENVFILE="--env-file=/etc/docker/${CONTAINER_NAME}"
 <% end %>
 
-NEW_ID="$(docker run -d $ENVFILE "$IMAGE_NAME")"
+<% if container[:volumes] %>
+VOLUMES="<%= container[:volumes].map { |x| "-v #{x}" }.join(' ') %>"
+<% end %>
+
+NEW_ID="$(docker run -d $ENVFILE $VOLUMES "$IMAGE_NAME")"
 EXISTING_ID="$(docker ps --filter "name=$CONTAINER_NAME" --quiet)"
 
 NEW_IP="$(docker inspect --format='{{.NetworkSettings.IPAddress}}' $NEW_ID)"
