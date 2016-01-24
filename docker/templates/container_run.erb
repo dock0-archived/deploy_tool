@@ -13,8 +13,7 @@ ENVFILE="--env-file=/etc/docker/${CONTAINER_NAME}"
 VOLUMES="<%= container[:volumes].map { |x| "-v #{x}" }.join(' ') %>"
 <% end %>
 
-NEW_ID="$(docker run -d $ENVFILE $VOLUMES "$IMAGE_NAME")"
-EXISTING_ID="$(docker ps --filter "name=$CONTAINER_NAME" --quiet)"
+NEW_ID="$(docker run --rm -d $ENVFILE $VOLUMES "$IMAGE_NAME")"
 
 NEW_IP="$(docker inspect --format='{{.NetworkSettings.IPAddress}}' $NEW_ID)"
 NEW_MAC="$(docker inspect --format='{{.NetworkSettings.MacAddress}}' $NEW_ID)"
@@ -50,9 +49,9 @@ ip6tables -t nat -I DOCK0 \
   -m comment --comment $CONTAINER_NAME
 <% end %>
 
+EXISTING_ID="$(docker ps --filter "name=$CONTAINER_NAME" --quiet --all)"
 if [ -n "$EXISTING_ID" ] ; then
   docker kill $EXISTING_ID
-  docker rm $EXISTING_ID
 fi
 
 docker rename $NEW_ID $CONTAINER_NAME
