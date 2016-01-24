@@ -20,4 +20,9 @@ disks:
     type: raw
 networking:
   docker0_ipv6_prefix: 'fd00::'
+containers:
+- name: dock0/ssh
+  ports:
+  - internal: 22
+    external: 20
 ...
