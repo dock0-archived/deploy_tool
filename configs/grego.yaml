@@ -11,4 +11,13 @@ networking:
     - 2600:3c02::f03c:91ff:fe50:b0b3/64
     - 2600:3c02:e001:9001::1/56
   ipv6_gateway: fe80::1
+containers:
+- name: dock0/manager
+  ports:
+  - internal: 22
+    external: 20
+- name: amylum/builder
+  ports:
+  - internal: 22
+    external: 24
 ...

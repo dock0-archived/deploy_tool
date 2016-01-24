@@ -12,4 +12,9 @@ networking:
     - 2600:3c03:e001:9001::1/56
     - 2600:3c03:e001:9001::9001/56
   ipv6_gateway: fe80::1
+containers:
+- name: dock0/irc
+  ports:
+  - internal: 22
+    external: 20
 ...
