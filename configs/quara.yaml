@@ -12,18 +12,6 @@ networking:
     - 2600:3c01:e001:9001::1/56
   ipv6_gateway: fe80::1
 containers:
-- name: dock0/blog
-  ports:
-  - internal: 80
-- name: dock0/dns
-  ports:
-  - internal: 53
-  - internal: 53
-    protocol: udp
-- name: dock0/committed
-  ports:
-  - internal: 80
-    external: 8080
 - name: dock0/hellolinodians
   envfile: hellolinodians
 ...
