@@ -1,4 +1,0 @@
-[user]
-    name = <%= @config[:full_name] %>
-    email = <%= @config[:email] %>
-
