@@ -13,14 +13,14 @@ networking:
   ipv6_gateway: fe80::1
 containers:
 - name: dock0/manager
-  ports:
+  external_ports:
   - internal: 22
     external: 222
   volumes:
   - /var/lib/dock0-manager:/var/lib/dock0-manager
   - /var/run/docker.sock:/var/run/docker.sock
 - name: amylum/builder
-  ports:
+  external_ports:
   - internal: 22
     external: 122
 ...

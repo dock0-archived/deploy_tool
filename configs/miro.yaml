@@ -14,7 +14,7 @@ networking:
   ipv6_gateway: fe80::1
 containers:
 - name: dock0/irc
-  ports:
+  external_ports:
   - internal: 22
     external: 20
 ...

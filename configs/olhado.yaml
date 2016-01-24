@@ -13,15 +13,25 @@ networking:
   ipv6_gateway: fe80::1
 containers:
 - name: dock0/blog
-  ports:
+  external_ports:
   - internal: 80
 - name: dock0/dns
-  ports:
+  external_ports:
   - internal: 53
   - internal: 53
     protocol: udp
 - name: dock0/committed
-  ports:
+  external_ports:
   - internal: 80
     external: 8080
+- name: dock0/hellolinodians
+  envfile: hellolinodians
+- name: dock0/redis
+  bridge: fidelius
+- name: dock0/fidelius
+  external_ports:
+  - internal: 80
+    external: 1080
+  bridge: fidelius
+  envfile: fidelius
 ...
