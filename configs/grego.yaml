@@ -18,6 +18,7 @@ containers:
     external: 20
   volumes:
   - /var/lib/dock0-manager:/var/lib/dock0-manager
+  - /var/run/docker.sock:/var/run/docker.sock
 - name: amylum/builder
   ports:
   - internal: 22
