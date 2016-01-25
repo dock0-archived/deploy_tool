@@ -33,7 +33,7 @@ ip6tables-save \
 
 # Add new iptables rules
 
-<% (container[:ports] || []).each do |port| %>
+<% (container[:external_ports] || []).each do |port| %>
 <% port[:protocol] ||= 'tcp' %>
 <% port[:external] ||= port[:internal] %>
 iptables -t nat -I DOCK0 \

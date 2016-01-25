@@ -4,10 +4,10 @@ set -e
 
 CONTAINER_NAME=<%= container[:service] %>
 
-EXISTING_ID="$(docker ps --filter "name=$CONTAINER_NAME" --quiet)"
+EXISTING_ID="$(docker ps --filter "name=$CONTAINER_NAME" --quiet --all)"
 
 if [ -n "$EXISTING_ID" ] ; then
-  docker kill $EXISTING_ID
+  docker kill $EXISTING_ID || true
   docker rm $EXISTING_ID
 fi
 
