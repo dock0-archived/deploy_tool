@@ -4,7 +4,7 @@ set -e
 
 CONTAINER_NAME=<%= container[:service] %>
 
-for prefix in NEW_ ""; do
+for prefix in NEW_ UP_; do
   EXISTING_ID="$(docker ps --filter "name=${PREFIX}${CONTAINER_NAME}" --quiet --all)"
 
   if [ -n "$EXISTING_ID" ] ; then

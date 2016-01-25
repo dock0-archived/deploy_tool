@@ -49,13 +49,13 @@ ip6tables -t nat -I DOCK0_EXTERNAL \
   -m comment --comment $CONTAINER_NAME
 <% end %>
 
-EXISTING_ID="$(docker ps --filter "name=$CONTAINER_NAME" --quiet --all)"
+EXISTING_ID="$(docker ps --filter "name=UP_$CONTAINER_NAME" --quiet --all)"
 if [ -n "$EXISTING_ID" ] ; then
   docker kill $EXISTING_ID || true
   docker rm $EXISTING_ID
 fi
 
-docker rename $NEW_ID $CONTAINER_NAME
+docker rename $NEW_ID UP_$CONTAINER_NAME
 
 docker wait $NEW_ID
 
