@@ -13,7 +13,7 @@ ENVFILE="--env-file=/etc/docker/${CONTAINER_NAME}"
 VOLUMES="<%= container[:volumes].map { |x| "-v #{x}" }.join(' ') %>"
 <% end %>
 
-NEW_ID="$(docker run -d $ENVFILE $VOLUMES "$IMAGE_NAME")"
+NEW_ID="$(docker run --name "NEW_${CONTAINER_NAME}" -d $ENVFILE $VOLUMES "$IMAGE_NAME")"
 
 NEW_IP="$(docker inspect --format='{{.NetworkSettings.IPAddress}}' $NEW_ID)"
 NEW_MAC="$(docker inspect --format='{{.NetworkSettings.MacAddress}}' $NEW_ID)"
@@ -36,13 +36,13 @@ ip6tables-save \
 <% (container[:external_ports] || []).each do |port| %>
 <% port[:protocol] ||= 'tcp' %>
 <% port[:external] ||= port[:internal] %>
-iptables -t nat -I DOCK0 \
+iptables -t nat -I DOCK0_EXTERNAL \
   -p <%= port[:protocol] %> \
   --dport <%= port[:external] %> \
   -j DNAT --to-destination "$NEW_IP:<%= port[:internal] %>" \
   -m comment --comment $CONTAINER_NAME
 
-ip6tables -t nat -I DOCK0 \
+ip6tables -t nat -I DOCK0_EXTERNAL \
   -p <%= port[:protocol] %> \
   --dport <%= port[:external] %> \
   -j DNAT --to-destination "[$NEW_IPV6]:<%= port[:internal] %>" \
