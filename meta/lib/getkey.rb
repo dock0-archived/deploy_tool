@@ -1,41 +1,29 @@
 #!/usr/bin/env ruby
 
-require 'keychain'
-require 'highline/import'
+require 'keylime'
 require 'linodeapi'
+require 'userinput'
 
-keychain_path = ENV['DOCK0_KEYCHAIN'] || Keychain.default.path
-KEYCHAIN = Keychain.open keychain_path
-SERVICE = 'linode-api'
+CREDENTIAL = Keylime.new(server: 'https://api.linode.com', account: 'dock0')
 
-def load_from_keychain
-  entry = KEYCHAIN.generic_passwords.where(service: SERVICE).first
-  fail(KeyError, 'Keychain item not found') unless entry
-  entry.password
+def prompt(item, secret=false)
+  UserInput.new(message: "Linode Manager #{item}", secret: secret).ask
 end
 
-def save_to_keychain(key)
-  KEYCHAIN.generic_passwords.create(service: SERVICE, password: key)
-end
-
-def load_from_prompt
-  prompt = HighLine.new(STDIN, STDERR)
-  username = prompt.ask('Linode Manager Username: ')
-  password = prompt.ask('Linode Manager Password: ') { |q| q.echo = '*' }
-  twofactor = prompt.ask('Linode Manager 2FA token: ')
+def load_apikey
+  username = prompt('Username')
+  password = prompt('Password', true)
+  twofactor = prompt('2FA Token') 
   api = LinodeAPI::Raw.new(
     username: username,
     password: password,
-    token: twofactor)
-  api.apikey
+    token: twofactor
+  ).apikey
 end
 
-begin
-  key = load_from_keychain
-rescue KeyError
-  key = load_from_prompt
-  save_to_keychain(key)
+def load_creds
+  CREDENTIAL.set(load_apikey)
 end
 
-fail('Failed to load credentials') unless key
-puts key
+key = CREDENTIAL.get || load_creds
+puts key.password
