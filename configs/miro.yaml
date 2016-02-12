@@ -17,4 +17,7 @@ containers:
   external_ports:
   - internal: 22
     external: 20
+- name: dock0/pubkeys
+  external_ports:
+  - internal: 80
 ...
