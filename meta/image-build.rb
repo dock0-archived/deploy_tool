@@ -5,7 +5,7 @@ require 'securerandom'
 require_relative 'lib/api'
 require_relative 'lib/helpers'
 
-HOSTNAME = ARGV.first || fail('Please supply a hostname')
+HOSTNAME = ARGV.first || raise('Please supply a hostname')
 CONFIG = YAML.load(File.read('config.yaml'))
 API_IDS = CONFIG['api_ids']
 
@@ -36,7 +36,7 @@ root_id = wrapper.create_from_stackscript(
 config_id = wrapper.create_config(
   kernelid: API_IDS['stock_kernel'],
   disklist: "#{root_id},#{API_IDS['finnix']}",
-  label: 'meta_dock0',
+  label: 'meta_dock0'
 )
 
 puts 'Booting meta image'

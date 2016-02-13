@@ -6,15 +6,19 @@ require 'userinput'
 
 CREDENTIAL = Keylime.new(server: 'https://api.linode.com', account: 'dock0')
 
-def prompt(item, secret=false)
-  UserInput.new(message: "Linode Manager #{item}", secret: secret).ask
+def prompt(item, secret = false)
+  UserInput.new(
+    message: "Linode Manager #{item}",
+    secret: secret,
+    fd: STDERR
+  ).ask
 end
 
 def load_apikey
   username = prompt('Username')
   password = prompt('Password', true)
-  twofactor = prompt('2FA Token') 
-  api = LinodeAPI::Raw.new(
+  twofactor = prompt('2FA Token')
+  LinodeAPI::Raw.new(
     username: username,
     password: password,
     token: twofactor

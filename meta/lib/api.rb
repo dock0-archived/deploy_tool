@@ -1,5 +1,7 @@
 require 'linodeapi'
 
+##
+# API module for deployments
 module API
   class << self
     def new(*args)
@@ -7,6 +9,8 @@ module API
     end
   end
 
+  ##
+  # Wraps API with helper methods
   class Wrapper
     def initialize(hostname)
       @hostname = hostname
@@ -14,7 +18,7 @@ module API
 
     def jobs_running?
       jobs = api.linode.job.list(linodeid: linodeid)
-      jobs.select { |job| job[:host_finish_dt] == '' }.length > 0
+      !jobs.select { |job| job[:host_finish_dt] == '' }.empty?
     end
 
     def wait_for_jobs
@@ -29,12 +33,16 @@ module API
       puts 'Shutting down and removing existing data'
       api.linode.shutdown(linodeid: linodeid)
       configs, disks = existing
-      configs.each do |c|
-        api.linode.config.delete(linodeid: linodeid, configid: c[:configid])
-      end
-      disks.each do |d|
-        api.linode.disk.delete(linodeid: linodeid, diskid: d[:diskid])
-      end
+      configs.each { |c| delete_config(c) }
+      disks.each { |d| delete_disk(d) }
+    end
+
+    def delete_config(config)
+      api.linode.config.delete(linodeid: linodeid, configid: config[:configid])
+    end
+
+    def delete_disk(disk)
+      api.linode.disk.delete(linodeid: linodeid, diskid: disk[:diskid])
     end
 
     def create_disk(params)
@@ -62,7 +70,7 @@ module API
     end
 
     def update_config(params)
-      res = api.linode.config.update params.merge(linodeid: linodeid)
+      api.linode.config.update params.merge(linodeid: linodeid)
     end
 
     def get_image(label)
@@ -94,14 +102,14 @@ module API
     def api
       return @api if @api
       api_key = `./meta/lib/getkey.rb`
-      fail('API key request failed') if api_key.empty?
+      raise('API key request failed') if api_key.empty?
       @api = LinodeAPI::Raw.new(apikey: api_key)
     end
 
     def linodeid
       return @linodeid if @linodeid
       linode = api.linode.list.find { |l| l[:label] == @hostname }
-      @linodeid = linode.linodeid || fail('Linode not found')
+      @linodeid = linode.linodeid || raise('Linode not found')
     end
 
     def hypervisor

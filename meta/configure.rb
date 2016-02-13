@@ -3,8 +3,8 @@
 require 'dock0'
 require_relative 'lib/helpers'
 
-HOSTNAME = ARGV.first || fail('Please supply a hostname')
-CONFIG_FILES = ['config.yaml', "configs/#{HOSTNAME}.yaml"]
+HOSTNAME = ARGV.first || raise('Please supply a hostname')
+CONFIG_FILES = ['config.yaml', "configs/#{HOSTNAME}.yaml"].freeze
 CONFIG = CONFIG_FILES.each_with_object({}) do |file, obj|
   next unless File.exist? file
   obj.merge! YAML.load(File.read(file))

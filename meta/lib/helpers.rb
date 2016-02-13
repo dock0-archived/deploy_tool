@@ -1,6 +1,8 @@
 require 'net/http'
 require 'resolv'
 
+##
+# Add helper for waiting for response
 module Helpers
   class << self
     def wait_for_response(hostname, port)

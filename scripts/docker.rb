@@ -11,17 +11,17 @@ def load_template(name)
   ERB.new(File.read(file), nil, '<>')
 end
 
-def load_envfile(container, suffix, &block)
+def load_envfile(container, suffix)
   file = File.join ENVFILE_DIR, "#{container[:envfile]}.#{suffix}"
   return unless File.exist? file
-  block.call(file)
+  yield(file)
 end
 
 def add_envfile(container)
   return unless container[:envfile]
   data = load_envfile(container, 'txt') { |x| File.read(x) }
   data ||= load_envfile(container, 'rb') { |x| `ruby "#{x}"` }
-  fail("No envfile found: #{container[:envfile]}") unless data
+  raise("No envfile found: #{container[:envfile]}") unless data
   target_file = File.join ENVFILE_TARGET_DIR, container[:service]
   FileUtils.mkdir_p ENVFILE_TARGET_DIR
 
@@ -40,7 +40,7 @@ SERVICE_TARGET_DIR = File.join(TARGET_DIR, 'etc', 's6', 'service')
 ENVFILE_TARGET_DIR = File.join(TARGET_DIR, 'etc', 'docker')
 
 @config[:containers].each do |container|
-  container[:service] = container[:name].gsub('/', '_')
+  container[:service] = container[:name].tr('/', '_')
   dir = File.join SERVICE_TARGET_DIR, "container_#{container[:service]}"
   TEMPLATES.each do |file, template|
     script = "#{dir}/#{file}"
