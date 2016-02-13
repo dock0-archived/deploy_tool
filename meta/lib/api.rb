@@ -101,6 +101,7 @@ module API
 
     def api
       return @api if @api
+      system './meta/lib/getkey.rb', 'quiet'
       api_key = `./meta/lib/getkey.rb`
       raise('API key request failed') if api_key.empty?
       @api = LinodeAPI::Raw.new(apikey: api_key)

@@ -4,6 +4,7 @@ require 'keylime'
 require 'linodeapi'
 require 'userinput'
 
+QUIET = ARGV.first
 CREDENTIAL = Keylime.new(server: 'https://api.linode.com', account: 'dock0')
 
 def prompt(item, secret = false)
@@ -30,4 +31,4 @@ def load_creds
 end
 
 key = CREDENTIAL.get || load_creds
-puts key.password
+puts key.password unless QUIET
