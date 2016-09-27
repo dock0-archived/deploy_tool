@@ -2,7 +2,7 @@ deploy_tool
 ========
 
 [![Automated Build](http://img.shields.io/badge/automated-build-green.svg)](https://hub.docker.com/r/dock0/deploy_tool/)
-[![Build Status](https://img.shields.io/circleci/project/dock0/deploy_tool.svg)](https://circleci.com/gh/dock0/deploy_tool)
+[![Build Status](https://img.shields.io/circleci/project/dock0/deploy_tool/master.svg)](https://circleci.com/gh/dock0/deploy_tool)
 [![MIT Licensed](http://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 
 My configuration for [dock0](https://github.com/dock0/dock0)
