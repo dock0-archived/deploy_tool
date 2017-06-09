@@ -1,4 +1,4 @@
-deploy_tool
+dock0/deploy_tool
 ========
 
 [![Automated Build](http://img.shields.io/badge/automated-build-green.svg)](https://hub.docker.com/r/dock0/deploy_tool/)
