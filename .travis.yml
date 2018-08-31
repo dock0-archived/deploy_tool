@@ -1,0 +1,14 @@
+sudo: required
+dist: trusty
+services:
+- docker
+install:
+- docker build -t test .
+script:
+- docker run -ti test /bin/true
+- docker run -ti test /bin/bash --version
+- docker run -ti test which python
+notifications:
+  email: false
+  slack:
+    secure: oAW7sN37zcV8BVAhG1PUMSAZmSP4MNqEQ/SbBXvlrTEzbFUHiBvU5gFnfMYqidqpTWbrugG//gofuRklcYTn49cD91dOkLkjCgFs7Mc/ABYKKCf4CfYNURvBiSAeIfTdlMSwK1scSlMHh4vPPMKxACso6paqSmescCTQUuXqjE6Etp3kUrsccPERdBLfs/S0SD7JXa1kLxlUCnWeE5A67CbQsovE1tEOEujxC2sMVGc9i3W1lznMoGFZgPK7ieIhVdjkfgw206bKoCENgEDrJfOEYh7mWqNiNBvUDG6wg2NcG7fM67VWZUwQ8n3Eu08I6EP7EcXwCfphlyQJiSgCuHSSlTXhyYlSKnI2tMefSMKFhELvY/8Dk/EgnJUP5TcTZ29k4ZKoQtUulN+dlPM/PlWea3vt9jJsGDwVCbmiAAvNXr23uKmGyW5/OulWIv+EUV+wV9UK0VmUu+nf/HYi0ZZcWxeqU2A7nbNRDiDnvFJYhzkTdkRhrilUoFynPUU/PYxXNQSoBVKybySENyLoqLwT4xtY79mnY7wzxePqVhPfjWABcFzyxkOCSQFksrfwh45zC2e7b/QklEJ+zf/3g0yF9E9OqKhAJQvws0wOS22/krc9tS9Pwzwi/8pwQTdrjMa/U8S2P7E98vyo4giBU50z/zCB+kYykfuAnPKgUXE=
