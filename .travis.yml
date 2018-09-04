@@ -3,7 +3,7 @@ dist: trusty
 services:
 - docker
 install:
-- docker build -t test .
+- docker build -t test meta
 script:
 - docker run -ti test /bin/true
 - docker run -ti test /bin/bash --version
