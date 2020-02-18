@@ -1,3 +1,5 @@
+**Deprecation Notice:** I'm no longer using this; instead, I'm aiming to build a deploy story in Terraform for deploying these VMs
+
 dock0/deploy_tool
 ========
 
